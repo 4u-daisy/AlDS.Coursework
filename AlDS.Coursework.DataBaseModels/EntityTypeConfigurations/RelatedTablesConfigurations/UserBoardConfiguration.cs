@@ -8,7 +8,10 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.RelatedTablesC
     {
         public void Configure(EntityTypeBuilder<UserBoard> entityTypeBuilder)
         {
-            entityTypeBuilder.HasKey(x => new { x.UserId, x.BoardId });
+            entityTypeBuilder
+                .HasKey(x => x.Key)
+                .HasName("PRIMARY KEY");
+
             entityTypeBuilder
                 .HasOne(x => x.User)
                 .WithMany(x => x.UserBoards)

@@ -10,11 +10,12 @@ namespace AlDS.Coursework.Board.BoardModel
     public class Note
     {
         [Required]
-        public int NoteId { get; set; }
+        [Key]
+        public string NoteId { get; set; } = new Guid().ToString();
         [Required]
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
         [Required]
-        public int CardId { get; set; }
+        public string CardId { get; set; }
 
         public Card? Card { get; set; }
 

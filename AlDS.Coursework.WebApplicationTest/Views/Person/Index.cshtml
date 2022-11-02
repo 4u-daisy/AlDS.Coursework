@@ -1,0 +1,12 @@
+﻿@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<h1>This is Person Area's</h1>
+
+if(SignInManager.IsSignedIn(User)){
+	<p>Hello. @User.Identity?.Name</p>
+
+}
+

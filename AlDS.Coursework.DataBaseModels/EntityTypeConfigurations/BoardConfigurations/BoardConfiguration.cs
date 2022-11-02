@@ -9,15 +9,14 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.BoardConfigura
         public void Configure(EntityTypeBuilder<AlDS.Coursework.Board.BoardModel.Board> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => x.BoardId);
-            entityTypeBuilder.HasIndex(x => x.BoardId);
+            //entityTypeBuilder.HasIndex(x => x.BoardId);
             entityTypeBuilder
                 .HasMany(x => x.Cards)
                 .WithOne(x => x.Board)
                 .HasForeignKey(x => x.BoardId);
             entityTypeBuilder
                 .Property(x => x.BoardId)
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+                .IsRequired();
             entityTypeBuilder
                 .Property(x => x.Title)
                 .HasMaxLength(63);

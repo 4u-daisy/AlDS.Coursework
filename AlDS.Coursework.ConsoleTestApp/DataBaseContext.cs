@@ -23,6 +23,7 @@ namespace AlDS.Coursework.Test
 
         public DataBaseContext()
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -43,3 +44,16 @@ namespace AlDS.Coursework.Test
         }
     }
 }
+/*
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder
+        .Entity<BlogPostsCount>(
+            eb =>
+            {
+                eb.HasNoKey();
+                eb.ToView("View_BlogPostCounts");
+                eb.Property(v => v.BlogName).HasColumnName("Name");
+            });
+}
+ */

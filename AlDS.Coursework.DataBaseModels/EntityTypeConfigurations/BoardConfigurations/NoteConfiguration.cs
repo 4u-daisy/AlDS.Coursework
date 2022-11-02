@@ -9,11 +9,10 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.BoardConfigura
         public void Configure(EntityTypeBuilder<Note> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => x.NoteId);
-            entityTypeBuilder.HasIndex(x => x.NoteId);
+            //entityTypeBuilder.HasIndex(x => x.NoteId);
             entityTypeBuilder
                 .Property(x => x.NoteId)
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+                .IsRequired();
             entityTypeBuilder
                 .Property(x => x.Title)
                 .HasMaxLength(63);

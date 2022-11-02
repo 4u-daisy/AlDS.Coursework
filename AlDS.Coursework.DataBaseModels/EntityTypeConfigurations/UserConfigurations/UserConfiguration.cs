@@ -8,14 +8,13 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.UserConfigurat
     {
         public void Configure(EntityTypeBuilder<User> entityTypeBuilder)
         {
-            entityTypeBuilder.HasKey(x => x.UserId);
-            entityTypeBuilder.HasIndex(x => x.UserId);
+            entityTypeBuilder.HasKey(x => x.Id);
+            //entityTypeBuilder.HasIndex(x => x.Id);
             entityTypeBuilder
-                .Property(x => x.UserId)
-                .IsRequired()
-                .ValueGeneratedOnAdd();
+                .Property(x => x.Id)
+                .IsRequired();
             entityTypeBuilder
-                .Property(x => x.Password)
+                .Property(x => x.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(63);
             entityTypeBuilder
@@ -23,7 +22,7 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.UserConfigurat
                 .IsRequired()
                 .HasMaxLength(63);
             entityTypeBuilder
-                .Property(x => x.Nickname)
+                .Property(x => x.UserName)
                 .HasMaxLength(63);
             entityTypeBuilder
                 .Property(x => x.Address)
