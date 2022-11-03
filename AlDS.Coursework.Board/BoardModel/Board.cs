@@ -14,7 +14,7 @@ namespace AlDS.Coursework.Board.BoardModel
         // TODO переделать все под string's 
         [Required]
         [Key]
-        public string BoardId { get; set; } = new Guid().ToString();
+        public string BoardId { get; set; } 
         [Required]
         public string UserId { get; set; }
 
@@ -35,5 +35,9 @@ namespace AlDS.Coursework.Board.BoardModel
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateUpdated { get; set; }
 
+        public Board()
+        {
+            BoardId = Guid.NewGuid().ToString();
+        }
     }
 }

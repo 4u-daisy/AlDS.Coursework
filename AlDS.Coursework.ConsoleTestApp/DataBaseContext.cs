@@ -6,16 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using AlDS.Coursework.Board.BoardModel;
 using AlDS.Coursework.Board.UserModel;
 using AlDS.Coursework.Board.RelatedTablesModel;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace AlDS.Coursework.Test
 {
-    public class DataBaseContext : DbContext
+    public class DataBaseContext : IdentityDbContext<User, IdentityRole, string>
     {
-        public DbSet<Board.BoardModel.Board> Boards { get; set; }
-        public DbSet<Card> Cards { get; set; }
-        public DbSet<Note> Notes { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserBoard> UserBoards { get; set; }
+        public DbSet<Board.BoardModel.Board> Board { get; set; }
+        public DbSet<Card> Card { get; set; }
+        public DbSet<Note> Note { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UserBoard> UserBoard { get; set; }
 
 
         public DataBaseContext(DbContextOptions<DataBaseContext> options)
@@ -29,10 +31,11 @@ namespace AlDS.Coursework.Test
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Database=Alds_TestProject; Persist Security Info=false; User ID='sa'; Password='sa'; MultipleActiveResultSets=True; Trusted_Connection=False;";
+            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Database=TestProject_AlDStwo; Persist Security Info=false; User ID='sa'; Password='sa'; MultipleActiveResultSets=True; Trusted_Connection=False;";
             optionsBuilder.UseSqlServer(connectionString);
         }
-
+        
+            //Alds_TestProject
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

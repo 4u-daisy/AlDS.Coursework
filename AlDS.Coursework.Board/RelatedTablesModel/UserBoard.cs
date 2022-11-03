@@ -9,7 +9,7 @@ namespace AlDS.Coursework.Board.RelatedTablesModel
     public class UserBoard
     {
         [Key]
-        public string Key { get; set; }
+        public string Key { get; set; } 
 
         public string UserId { get; set; }
         public UserModel.User User { get; set; }
@@ -19,7 +19,7 @@ namespace AlDS.Coursework.Board.RelatedTablesModel
 
         public UserBoard()
         {
-            Key = UserId + BoardId;
+            Key = new Guid().ToString();
         }
 
     }

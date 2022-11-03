@@ -2,35 +2,93 @@
 using AlDS.Coursework.Board.RelatedTablesModel;
 using AlDS.Coursework.Board.UserModel;
 using AlDS.Coursework.Test;
-using AlDS.Coursework.ConsoleTestApp;
 //using AlDS.Coursework.RelatedTables;
 //using Microsoft.EntityFrameworkCore.Design;
 
 
-var u = new user();
 
-
-Console.WriteLine(u.Id.GetType());
 
 using (DataBaseContext db = new DataBaseContext())
 {
-    var user = new User()
+    //var userList = db.User.ToList();
+
+    var elem = db.User.First(x => x.Email == "n_daisy1@mail.ru");
+    var boards = db.UserBoard.Where(x => x.UserId == elem.Id);
+
+    // все элементы с пользователями и досками
+    // нужно найти что? нужны все доски, с определенным юзером
+    // то есть
+    // найти все айди досок и проверить 
+
+    IQueryable<string> eeee = db.UserBoard.Where(x => x.UserId == elem.Id)
+        .Select(x => x.BoardId);
+
+
+    var res = db.Board.Where(x => eeee.Contains(x.BoardId));
+
+    foreach(var e in res)
     {
-        Name = "kfyhjyfj",
-        PasswordHash = "jfyjfj",
-        Email = "jfyjtueujt@email.ru"
-    };
+        Console.WriteLine(e.Title);
+    }
+       
+    //foreach(var b in boards)
+    //{
+    //    var tmp = db.Board.First(x=>x.BoardId == b.BoardId);
+    //    Console.WriteLine(tmp.Title);
+    //}
 
-    db.Users.Add(user);
-
-    db.SaveChanges();
-
+    //db.SaveChanges();
 }
 
 
 Console.WriteLine("All okay :)");
 
+//var board = new Board()
+//{
+//    Title = "Study",
+//    Description = "This is my study list",
+//    UserId = userList[1].Id
+//};
 
+//db.Board.Add(board);
+//db.SaveChanges();
+
+//var boards = db.Board.ToList();
+
+//var userboard = new UserBoard()
+//{
+//    User = daisy,
+//    Board = boards[0],
+
+//    UserId = daisy.Id,
+//    BoardId = boards[0].BoardId,
+
+//    Key = new String(daisy.Id + boards[0].BoardId)
+//};
+
+//var userboard2 = new UserBoard()
+//{
+//    User = daisy,
+//    Board = boards[1],
+
+//    UserId = daisy.Id,
+//    BoardId = boards[1].BoardId,
+
+//    Key = new String(daisy.Id + boards[1].BoardId)
+//};
+
+//db.UserBoard.Add(userboard);
+//db.UserBoard.Add(userboard2);
+/*
+    var user = new User()
+    {
+        PasswordHash = "126653",
+        Email = "11111@email.ru"
+    };
+
+    db.Users.Add(user);
+    db.SaveChanges();
+ */
 
 
 /*

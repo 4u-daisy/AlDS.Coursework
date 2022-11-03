@@ -22,5 +22,7 @@ namespace AlDS.Coursework.Board.UserModel
 
         public DateTime DateRegistration { get; set; } = DateTime.UtcNow;
         public DateTime DateBirthday { get; set; }
+
+        
     }
 }
