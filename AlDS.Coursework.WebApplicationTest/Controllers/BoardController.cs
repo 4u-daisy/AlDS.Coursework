@@ -25,6 +25,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
               return View(await _context.Board.ToListAsync());
         }
 
+        [HttpGet]
         public async Task<IActionResult> Info(string id)
         {
             if (id == null || _context.Board == null)

@@ -5,7 +5,7 @@ using AlDS.Coursework.Test;
 //using AlDS.Coursework.RelatedTables;
 //using Microsoft.EntityFrameworkCore.Design;
 
-
+//TODO настроить каскадное удаление и удаление в прицнипе
 
 
 using (DataBaseContext db = new DataBaseContext())
@@ -13,31 +13,83 @@ using (DataBaseContext db = new DataBaseContext())
     //var userList = db.User.ToList();
 
     var elem = db.User.First(x => x.Email == "n_daisy1@mail.ru");
-    var boards = db.UserBoard.Where(x => x.UserId == elem.Id);
 
-    // все элементы с пользователями и досками
-    // нужно найти что? нужны все доски, с определенным юзером
-    // то есть
-    // найти все айди досок и проверить 
+    db.Board.Remove(db.Board.First(x => x.UserId == elem.Id));
+    db.UserBoard.Remove(db.UserBoard.First(x => x.UserId == elem.Id));
 
-    IQueryable<string> eeee = db.UserBoard.Where(x => x.UserId == elem.Id)
-        .Select(x => x.BoardId);
+    db.Note.RemoveRange(db.Note.Where(x=>x.NoteId != String.Empty));
+    db.Card.RemoveRange(db.Card.Where(x => x.CardId != String.Empty));
+    
+    db.SaveChanges();   
 
+    var boards = db.UserBoard.First(x => x.UserId == elem.Id);
+    var b = db.Board.First(x => x.BoardId == boards.BoardId);
 
-    var res = db.Board.Where(x => eeee.Contains(x.BoardId));
-
-    foreach(var e in res)
+    var card = new Card()
     {
-        Console.WriteLine(e.Title);
-    }
-       
-    //foreach(var b in boards)
-    //{
-    //    var tmp = db.Board.First(x=>x.BoardId == b.BoardId);
-    //    Console.WriteLine(tmp.Title);
-    //}
+        Board = b,
+        BoardId = boards.BoardId,
+        CreatorId = elem.Id,
+        Title = "В планах",
+    };
+    var card2 = new Card()
+    {
+        Board = b,
+        BoardId = boards.BoardId,
+        CreatorId = elem.Id,
+        Title = "Делаю",
+    };
+    var card3 = new Card()
+    {
+        Board = b,
+        BoardId = boards.BoardId,
+        CreatorId = elem.Id,
+        Title = "Сделано",
+    };
 
-    //db.SaveChanges();
+    var note = new Note()
+    {
+        CardId = card.CardId,
+        Card = card,
+        CreatorId = elem.Id,
+        Title = "Важное дело номер 1",
+        Text = "абоба абиба"
+    };
+    var note2 = new Note()
+    {
+        CardId = card2.CardId,
+        Card = card2,
+        CreatorId = elem.Id,
+        Title = "Важное дело второй карты",
+        Text = "абиба"
+    };
+    var note3 = new Note()
+    {
+        CardId = card3.CardId,
+        Card = card3,
+        CreatorId = elem.Id,
+        Title = "Третье дело карты 3",
+        Text = "абоба?"
+    };
+    var note4 = new Note()
+    {
+        CardId = card.CardId,
+        Card = card,
+        CreatorId = elem.Id,
+        Title = "Дело секретное, в планах",
+        Text = "пупа и лупа работали в бухгалтерии"
+    };
+
+    db.Card.Add(card);
+    db.Card.Add(card2);
+    db.Card.Add(card3);
+
+    db.Note.Add(note);
+    db.Note.Add(note2);
+    db.Note.Add(note3);
+    db.Note.Add(note4);
+
+    db.SaveChanges();
 }
 
 

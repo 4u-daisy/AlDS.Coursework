@@ -38,5 +38,10 @@ namespace AlDS.Coursework.Board.BoardModel
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateExecuted { get; set; }
 
+        public Note()
+        {
+            NoteId = Guid.NewGuid().ToString();
+        }
+
     }
 }
