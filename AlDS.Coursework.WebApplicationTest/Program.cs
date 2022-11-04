@@ -56,6 +56,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute("default", "{controller=Person}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("default", "{controller=Board}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute("default", "{controller=Boards}/{action=Index}/{id?}");
 });
 
 app.MapRazorPages();

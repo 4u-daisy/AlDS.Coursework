@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.DateUpdated)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BoardId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BoardId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BoardId">Delete</a>
+                <a href = "/Board/Edit/@item.BoardId" asp-action="Edit" asp-route-id="@item.BoardId">Edit</a> |
+                <a href = "/Board/Details/@item.BoardId" asp-action="Details" asp-route-id="@item.BoardId">Details</a> |
+                <a href = "/Board/Delete/@item.BoardId" asp-action="Delete" asp-route-id="@item.BoardId">Delete</a>
             </td>
         </tr>
 }
