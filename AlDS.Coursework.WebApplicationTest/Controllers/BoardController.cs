@@ -40,6 +40,19 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 return NotFound();
             }
 
+            var cards = await _context.Card
+                .Where(x => x.BoardId == board.BoardId)
+                .ToListAsync();
+
+
+            foreach (var elem in board.Cards)
+            {
+                var notes = await _context.Note
+                    .Where(x => x.CardId == elem.CardId)
+                    .ToListAsync();
+            }
+
+
             return View(board);
         }
 

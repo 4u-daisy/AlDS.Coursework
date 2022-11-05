@@ -1,8 +1,30 @@
 ﻿@using AlDS.Coursework.Board.BoardModel;
-
+@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@using AlDS.Coursework.Board.RelatedTablesModel
+@using AlDS.Coursework.WebApplicationTest.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @model AlDS.Coursework.Board.BoardModel.Board;
 
+<p>Info</p>
 
-model AlDS.Coursework.WebApplicationTest.Data.ApplicationDbContext
 
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>meow</p>
+    <p>@Model.Cards.Count()</p>
+    @foreach (var item in @Model.Cards)
+    {
+        <p>Card: @item.Title</p>
 
+        @foreach(var elem in @item.Notes)
+        {
+            <p>Note: @elem.Title</p>
+        }
+    }
+
+   @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+}
