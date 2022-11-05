@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlDS.Coursework.Board.BoardModel;
 using AlDS.Coursework.WebApplicationTest.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlDS.Coursework.WebApplicationTest.Controllers
 {
+    [Authorize]
     public class BoardController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -26,7 +28,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Info(string id)
+        public async Task<IActionResult> Info(string id, string Title = "", string Text = "")
         {
             if (id == null || _context.Board == null)
             {
@@ -50,25 +52,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 var notes = await _context.Note
                     .Where(x => x.CardId == elem.CardId)
                     .ToListAsync();
-            }
-
-
-            return View(board);
-        }
-
-        // GET: Board/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null || _context.Board == null)
-            {
-                return NotFound();
-            }
-
-            var board = await _context.Board
-                .FirstOrDefaultAsync(m => m.BoardId == id);
-            if (board == null)
-            {
-                return NotFound();
             }
 
             return View(board);
@@ -159,7 +142,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             //_context.Update(updBoard);
             _context.SaveChanges();
 
-            return View(board);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Board/Delete/5
@@ -190,7 +173,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
         // POST: Board/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.Board == null)
@@ -211,6 +193,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         {
           return _context.Board.Any(e => e.BoardId == id);
         }
+
+
     }
 }
 
@@ -237,3 +221,4 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 return RedirectToAction(nameof(Index));
             }
  */
+

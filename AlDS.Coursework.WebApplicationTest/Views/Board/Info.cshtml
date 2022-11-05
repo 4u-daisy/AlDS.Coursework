@@ -3,9 +3,28 @@
 @using Microsoft.AspNetCore.Identity
 @using AlDS.Coursework.Board.RelatedTablesModel
 @using AlDS.Coursework.WebApplicationTest.Data
+
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @model AlDS.Coursework.Board.BoardModel.Board;
+
+    <style>
+      #okno {
+        text-align: left;
+        color: #0000cc;
+        display: none;
+        position: absolute;
+      }
+      #okno:target {display: block;}
+      .close {
+        display: inline-block;
+        color: #0000cc;
+        text-decoration: none;
+        background: #f2f2f2;
+        cursor:pointer;
+      }
+      .close:hover {background: #e6e6ff;}
+    </style>
 
 <p>Info</p>
 
@@ -22,9 +41,28 @@
         {
             <p>Note: @elem.Title</p>
         }
+
     }
+
+    <div id="okno">
+      <form asp-action="Create" method="post">
+        <label>Title:</label><br />
+        <input type="text" name="Title" /><br /><br />
+        <label>Text:</label><br />
+        <input type="text" name="Text" /><br /><br />
+
+        <input type="submit" value="Отправить" />
+      </form>
+     <a href="#" class="close">Закрыть окно</a>
+    </div>
+     
+    <a href="#okno">Вызвать всплывающее окно</a>
 
    @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
+
 }
+
+
+ 
