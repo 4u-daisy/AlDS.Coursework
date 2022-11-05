@@ -11,7 +11,6 @@ namespace AlDS.Coursework.Board.BoardModel
     /// </summary>
     public class Board
     {
-        // TODO переделать все под string's 
         [Required]
         [Key]
         public string BoardId { get; set; } 

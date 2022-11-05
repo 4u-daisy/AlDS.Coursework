@@ -146,34 +146,19 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("BoardId,UserId,Space,Title,Description,DateCreated,DateUpdated")] Board.BoardModel.Board board)
+        public async Task<IActionResult> Edit(string id, [Bind("Space,Title,Description")] Board.BoardModel.Board board)
         {
-            if (id != board.BoardId)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(board);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BoardExists(board.BoardId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+            var updBoard = await _context.Board.FirstAsync(x => x.BoardId == id);
+            
+            updBoard.Space = board.Space;
+            updBoard.Title = board.Title;
+            updBoard.Description = board.Description;
+            updBoard.DateUpdated = DateTime.UtcNow;
+
+            //_context.Update(updBoard);
+            _context.SaveChanges();
+
             return View(board);
         }
 
@@ -192,7 +177,15 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 return NotFound();
             }
 
-            return View(board);
+            _context.UserBoard
+                .RemoveRange(_context.UserBoard
+                .Where(x=>x.BoardId==board.BoardId));
+
+            _context.Board.Remove(board);
+
+            await _context.SaveChangesAsync();
+
+            return Redirect("..");
         }
 
         // POST: Board/Delete/5
@@ -220,3 +213,27 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
     }
 }
+
+/*
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(board);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BoardExists(board.BoardId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+ */

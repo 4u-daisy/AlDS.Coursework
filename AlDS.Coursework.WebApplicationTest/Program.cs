@@ -8,6 +8,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
+// TODO добавить каскадное удаление
+// TODO узнать про хэши
+// TODO добавить доступ только к определенным доскам
+// TODO убрать возможность просматривать ВСЕ доски
+// TODO добавить роли
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
