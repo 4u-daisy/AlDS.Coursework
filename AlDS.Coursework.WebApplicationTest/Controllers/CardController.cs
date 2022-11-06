@@ -17,9 +17,9 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             _context = context;
         }
 
-        public IActionResult Create()
+        public IActionResult Create(string BoardId)
         {
-            ViewData["BoardId"] = new SelectList(_context.Board, "BoardId", "BoardId");
+            ViewData["Message"] = BoardId;
             return View();
         }
 
@@ -27,13 +27,17 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("CreatorId,BoardId,Title,Description")] Card card)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(card);
-                await _context.SaveChangesAsync();
-                return Redirect("../Board/Info/" + card.BoardId);
-            }
-            return NotFound();
+            var user = await _context.User
+                .FirstOrDefaultAsync(x => x.Email == card.CreatorId);
+
+            if (user == null)
+                return NotFound();
+
+            card.CreatorId = user.Id;
+            _context.Add(card);
+            await _context.SaveChangesAsync();
+            return Redirect("../Board/Info/" + card.BoardId);
+ 
         }
 
         // GET: Card/Edit/5
@@ -57,11 +61,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("CardId,CreatorId,BoardId,Title,Description")] Card card)
         {
-            if (id != card.CardId)
-            {
-                return NotFound();
-            }
-
             var updCard = await _context.Card.FirstAsync(x => x.CardId == id);
 
             updCard.Title = card.Title;
@@ -70,11 +69,11 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.SaveChanges();
 
-            return Redirect("../Board/Info/" + card.BoardId);
+            return Redirect("../../Board/Info/" + updCard.BoardId);
         }
 
-        // GET: Card/Delete/5
-        public async Task<IActionResult> Delete(string id, string BoardId = "")
+
+        public async Task<IActionResult> Delete(string id, string BoardId)
         {
             if (id == null || _context.Card == null)
             {
@@ -89,8 +88,9 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             }
 
             _context.Card.Remove(card);
+            _context.SaveChanges();
 
-            return Redirect("../Board/Info/" + BoardId);
+            return Redirect("../../Board/Info/" + BoardId);
         }
 
         // POST: Card/Delete/5

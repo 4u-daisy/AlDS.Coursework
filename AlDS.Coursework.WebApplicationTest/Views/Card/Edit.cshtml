@@ -1,16 +1,25 @@
 ﻿@model AlDS.Coursework.Board.BoardModel.Card
+@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@using AlDS.Coursework.Board.BoardModel
+@using AlDS.Coursework.Board.RelatedTablesModel
+@using AlDS.Coursework.WebApplicationTest.Data
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @{
     ViewData["Title"] = "Edit";
 }
 
+@if (SignInManager.IsSignedIn(User))
+{
 <h1>Edit</h1>
 
 <h4>Card</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CardId" value = @Model.CardId/>
             <input type="hidden" asp-for="CreatorId" value = @Model.CreatorId/>
@@ -33,4 +42,6 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+    
 }

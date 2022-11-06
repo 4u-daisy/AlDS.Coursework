@@ -1,4 +1,5 @@
 ﻿@model AlDS.Coursework.Board.BoardModel.Card
+
 @using AlDS.Coursework.Board.UserModel
 @using Microsoft.AspNetCore.Identity
 @using AlDS.Coursework.Board.BoardModel
@@ -19,14 +20,12 @@
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create">
+            <form asp-action="Create" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input type="hidden" name="CreatorId" value = @Model.CreatorId>
-                        <input type="hidden" name ="BoardId" value = @Model.BoardId>
+                        <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+                        <input type="hidden" name ="BoardId" value = @ViewData["Message"]>
                         Title @Html.EditorFor(model => model.Title)
-                        <div class="col-md-10">
-                         Desc @Html.EditorFor(model => model.Description)
-                        </div>
+                        Desc @Html.EditorFor(model => model.Description)
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>

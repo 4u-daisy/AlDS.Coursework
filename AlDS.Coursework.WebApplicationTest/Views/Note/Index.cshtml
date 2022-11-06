@@ -1,3 +1,25 @@
-﻿@model IEnumerable<AlDS.Coursework.Board.BoardModel.Note>
+﻿@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@using AlDS.Coursework.Board.BoardModel
+@using AlDS.Coursework.Board.RelatedTablesModel
+@using AlDS.Coursework.WebApplicationTest.Data
 
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
+@model AlDS.Coursework.Board.BoardModel.Note
+
+@if (SignInManager.IsSignedIn(User))
+{
+	<p>Title: @Model.Title</p>
+	<p>Desc: @Model.Description</p>
+	<p>Text: @Model.Text</p>
+	<p>CrearotId: @Model.CreatorId</p>
+	
+	<p>Edit: <a href="../Edit/@Model.NoteId">Click</a></p>
+	<p>Delete: <a href="../Delete/@Model.NoteId">Click</a></p>
+
+	// TODO add go to board :(
+	<p>Go to Board (Person): <a href="../../Person">Click</a></p>
+
+}

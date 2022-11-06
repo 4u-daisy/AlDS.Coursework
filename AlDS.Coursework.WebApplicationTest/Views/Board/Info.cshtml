@@ -45,8 +45,8 @@
     {
         <p>Card: @item.Title</p>
         <p>Id: @item.CardId</p>
-        <p>Edit: <a href="../../Card/Edit/@item.CardId">Click</a></p>
-        <p>Delete: <a href="../../Card/Delete/@item.CardId">Click</a></p>
+        <p>Edit: @Html.RouteLink("Click", new { controller = "Card", action = "Edit", id = @item.CardId, BoardId = @Model.BoardId } )</p>
+        <p>Delete: @Html.RouteLink("Click", new { controller = "Card", action = "Delete", id = @item.CardId, BoardId = @Model.BoardId } )</p>
 
         @foreach(var elem in @item.Notes)
         {
@@ -71,18 +71,12 @@
           </form>
          <a href="#" class="close">Закрыть окно</a>
         </div>
-
-    <p>Add Card: <a href="../../Card/Create/">Click</a></p>
     }
-
-
+    <p>Add Card: @Html.RouteLink("Click", new { controller = "Card", action = "Create", BoardId = @Model.BoardId } )</p>
 
 
    @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
-
     }
 
 }
