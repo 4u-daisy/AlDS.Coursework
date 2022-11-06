@@ -1,4 +1,4 @@
-﻿@model AlDS.Coursework.Board.BoardModel.Board
+﻿@model AlDS.Coursework.Board.BoardModel.Card
 @using AlDS.Coursework.Board.UserModel
 @using Microsoft.AspNetCore.Identity
 @using AlDS.Coursework.Board.BoardModel
@@ -7,31 +7,26 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-
 @{
     ViewData["Title"] = "Create";
 }
 
+<h1>Create</h1>
 
 @if (SignInManager.IsSignedIn(User))
 {
-    var elemName = @User.Identity.Name;
-   
-    <h1>Create</h1>
-    
-    <h4>Board</h4>
+    <h4>Card</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create" method="post">
-                <div class="form-group">
-                    @Html.EditorFor(model => model.Title)
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Description)
-                        @Html.EditorFor(model => model.Space)
-                    </div>
-                    <input type="hidden" name="UserId" value = @Model.UserId>
-                </div>
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="CreatorId" value = @Model.CreatorId>
+                        <input type="hidden" name ="BoardId" value = @Model.BoardId>
+                        Title @Html.EditorFor(model => model.Title)
+                        <div class="col-md-10">
+                         Desc @Html.EditorFor(model => model.Description)
+                        </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
@@ -40,13 +35,12 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a href="../" asp-action="Index">Back to List</a>
     </div>
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
-
-
-
 }
+
+

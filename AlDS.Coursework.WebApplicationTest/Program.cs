@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 // TODO убрать возможность просматривать ВСЕ доски
 // TODO добавить роли
 
+// TODO узнать, можно ли как то взять id пользователя, а не почту
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

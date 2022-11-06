@@ -28,7 +28,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Info(string id, string Title = "", string Text = "")
+        public async Task<IActionResult> Info(string id)
         {
             if (id == null || _context.Board == null)
             {
@@ -70,8 +70,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         [HttpPost, ActionName("Create")]
         public async Task<IActionResult> Create([Bind("UserId,Space,Title,Description")] Board.BoardModel.Board board)
         {
-            var tmp = board.UserId;
-            var userId = await _context.User.FirstAsync(x => x.Email == tmp);
+            var userId = await _context.User.FirstAsync(x => x.Email == board.UserId);
 
             var newBoard = new Board.BoardModel.Board()
             {
@@ -131,6 +130,10 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("Space,Title,Description")] Board.BoardModel.Board board)
         {
+            if(id != board.BoardId)
+            {
+                return NotFound();
+            }
 
             var updBoard = await _context.Board.FirstAsync(x => x.BoardId == id);
             

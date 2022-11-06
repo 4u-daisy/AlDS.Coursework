@@ -24,7 +24,15 @@
         cursor:pointer;
       }
       .close:hover {background: #e6e6ff;}
+
+
+      {box-sizing: border-box;}
     </style>
+
+
+<script>
+</script>
+
 
 <p>Info</p>
 
@@ -36,33 +44,49 @@
     @foreach (var item in @Model.Cards)
     {
         <p>Card: @item.Title</p>
+        <p>Id: @item.CardId</p>
+        <p>Edit: <a href="../../Card/Edit/@item.CardId">Click</a></p>
+        <p>Delete: <a href="../../Card/Delete/@item.CardId">Click</a></p>
 
         @foreach(var elem in @item.Notes)
         {
             <p>Note: @elem.Title</p>
+            <p>Info: <a href="../../Note/@elem.NoteId">Click</a></p>
+            <p>Edit: <a href="../../Note/Edit/@elem.NoteId">Click</a></p>
+            <p>Delete: <a href="../../Note/Delete/@elem.NoteId">Click</a></p>
         }
+        <a href="#okno">Добавить заметку? @item.CardId </a>
 
+        // TODO Узнать id текущего пользователя
+        <div id="okno">
+          <form asp-action="Create" method="post">
+             <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+             <input type="hidden" name="CardId" value = @item.CardId>
+             <input type="hidden" name="BoardId" value = @item.BoardId>
+            <label>Title:</label><br />
+            <input type="text" name="Title" /><br /><br />
+            <label>Text:</label><br />
+            <input type="text" name="Text" /><br /><br />
+            <input formaction="../../Note/Create" type="submit" value="Отправить" />
+          </form>
+         <a href="#" class="close">Закрыть окно</a>
+        </div>
+
+    <p>Add Card: <a href="../../Card/Create/">Click</a></p>
     }
 
-    <div id="okno">
-      <form asp-action="Create" method="post">
-        <label>Title:</label><br />
-        <input type="text" name="Title" /><br /><br />
-        <label>Text:</label><br />
-        <input type="text" name="Text" /><br /><br />
 
-        <input type="submit" value="Отправить" />
-      </form>
-     <a href="#" class="close">Закрыть окно</a>
-    </div>
-     
-    <a href="#okno">Вызвать всплывающее окно</a>
+
 
    @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
     }
 
 }
+
 
 
  

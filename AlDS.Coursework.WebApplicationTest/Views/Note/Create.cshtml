@@ -1,0 +1,36 @@
+﻿@model AlDS.Coursework.Board.BoardModel.Note
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Note</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="CreatorId" value = @Model.CreatorId>
+            <input type="hidden" name ="CardId" value = @Model.CardId>
+
+            Title @Html.EditorFor(model => model.Title)
+            Desc @Html.EditorFor(model => model.Description)
+            Text @Html.EditorFor(model=>model.Text);
+            Comment @Html.EditorFor(model=>model.Comment);
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
