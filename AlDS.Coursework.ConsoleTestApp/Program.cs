@@ -7,91 +7,13 @@ using AlDS.Coursework.Test;
 
 //TODO настроить каскадное удаление и удаление в прицнипе
 
+long[] d(long n) => n.ToString().Select(x => long.Parse(x.ToString())).Reverse().ToArray();
 
-using (DataBaseContext db = new DataBaseContext())
+var res = d(35231);
+foreach(var elem in res)
 {
-    //var userList = db.User.ToList();
-
-    var elem = db.User.First(x => x.Email == "n_daisy1@mail.ru");
-
-    db.Board.Remove(db.Board.First(x => x.UserId == elem.Id));
-    db.UserBoard.Remove(db.UserBoard.First(x => x.UserId == elem.Id));
-
-    db.Note.RemoveRange(db.Note.Where(x=>x.NoteId != String.Empty));
-    db.Card.RemoveRange(db.Card.Where(x => x.CardId != String.Empty));
-    
-    db.SaveChanges();   
-
-    var boards = db.UserBoard.First(x => x.UserId == elem.Id);
-    var b = db.Board.First(x => x.BoardId == boards.BoardId);
-
-    var card = new Card()
-    {
-        Board = b,
-        BoardId = boards.BoardId,
-        CreatorId = elem.Id,
-        Title = "В планах",
-    };
-    var card2 = new Card()
-    {
-        Board = b,
-        BoardId = boards.BoardId,
-        CreatorId = elem.Id,
-        Title = "Делаю",
-    };
-    var card3 = new Card()
-    {
-        Board = b,
-        BoardId = boards.BoardId,
-        CreatorId = elem.Id,
-        Title = "Сделано",
-    };
-
-    var note = new Note()
-    {
-        CardId = card.CardId,
-        Card = card,
-        CreatorId = elem.Id,
-        Title = "Важное дело номер 1",
-        Text = "абоба абиба"
-    };
-    var note2 = new Note()
-    {
-        CardId = card2.CardId,
-        Card = card2,
-        CreatorId = elem.Id,
-        Title = "Важное дело второй карты",
-        Text = "абиба"
-    };
-    var note3 = new Note()
-    {
-        CardId = card3.CardId,
-        Card = card3,
-        CreatorId = elem.Id,
-        Title = "Третье дело карты 3",
-        Text = "абоба?"
-    };
-    var note4 = new Note()
-    {
-        CardId = card.CardId,
-        Card = card,
-        CreatorId = elem.Id,
-        Title = "Дело секретное, в планах",
-        Text = "пупа и лупа работали в бухгалтерии"
-    };
-
-    db.Card.Add(card);
-    db.Card.Add(card2);
-    db.Card.Add(card3);
-
-    db.Note.Add(note);
-    db.Note.Add(note2);
-    db.Note.Add(note3);
-    db.Note.Add(note4);
-
-    db.SaveChanges();
+    Console.Write(elem + " ");
 }
-
 
 Console.WriteLine("All okay :)");
 

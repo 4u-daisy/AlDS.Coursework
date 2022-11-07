@@ -84,8 +84,13 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="NoteId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a href="../../Person" asp-action="Index">Back to List</a>
     </form>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+    
     
 }

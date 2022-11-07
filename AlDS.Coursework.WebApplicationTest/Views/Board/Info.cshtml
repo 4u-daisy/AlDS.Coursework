@@ -51,9 +51,9 @@
         @foreach(var elem in @item.Notes)
         {
             <p>Note: @elem.Title</p>
-            <p>Info: <a href="../../Note/@elem.NoteId">Click</a></p>
-            <p>Edit: <a href="../../Note/Edit/@elem.NoteId">Click</a></p>
-            <p>Delete: <a href="../../Note/Delete/@elem.NoteId">Click</a></p>
+            <p>Info: @Html.RouteLink("Click", new { controller = "Note", action = "Index", id = @elem.NoteId } )</p>
+            <p>Edit: @Html.RouteLink("Click", new { controller = "Note", action = "Edit", id = @elem.NoteId } )</p>
+            <p>Delete: @Html.RouteLink("Click", new { controller = "Note", action = "Delete", id = @elem.NoteId, BoardId = @item.BoardId } )</p>
         }
         <a href="#okno">Добавить заметку? @item.CardId </a>
 

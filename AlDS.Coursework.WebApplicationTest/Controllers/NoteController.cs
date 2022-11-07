@@ -18,6 +18,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         // GET: Note
+        [HttpGet]
         public async Task<IActionResult> Index(string id)
         {
             var elem = await _context.Note
@@ -101,11 +102,11 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return Redirect("../Index/" + id);
         }
 
         // GET: Note/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, string BoardId)
         {
             if (id == null || _context.Note == null)
             {
@@ -120,8 +121,9 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             }
 
             _context.Note.Remove(note);
+            _context.SaveChanges();
 
-            return View(note);
+            return Redirect("../../Board/Info" + BoardId);
         }
 
         // POST: Note/Delete/5

@@ -38,7 +38,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.RouteLink("Go to Board", new { controller = "Note", action = "Index", id = @Model.NoteId } )
 </div>
 
 @section Scripts {

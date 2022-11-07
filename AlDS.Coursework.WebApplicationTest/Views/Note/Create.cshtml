@@ -7,9 +7,7 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-@{
-    ViewData["Title"] = "Create";
-}
+
 <h1>Create</h1>
 
 @if (SignInManager.IsSignedIn(User))

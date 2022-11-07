@@ -9,6 +9,8 @@
 
 @model AlDS.Coursework.Board.BoardModel.Note
 
+<p>Index</p>
+
 @if (SignInManager.IsSignedIn(User))
 {
 	<p>Title: @Model.Title</p>
@@ -22,4 +24,8 @@
 	// TODO add go to board :(
 	<p>Go to Board (Person): <a href="../../Person">Click</a></p>
 
+	@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	}
+    
 }

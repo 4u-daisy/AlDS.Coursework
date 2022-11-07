@@ -29,7 +29,9 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // TODO разобраться почему оно блин не работает((
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Configuration.GetSection(Config.Project).Bind(new Config());
+
+//builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 builder.Services.AddTransient<IMailService, AlDS.Coursework.WebApplicationTest.Services.Email.MailService>();
 
 
