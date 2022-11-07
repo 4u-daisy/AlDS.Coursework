@@ -6,32 +6,16 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-@model ApplicationDbContext
+@model List<AlDS.Coursework.Board.BoardModel.Board>
 
+<h2>Hello, @ViewData["Name"]</h2>
 
-<h1>This is Person Area's</h1>
-
-@if(SignInManager.IsSignedIn(User)){
-	<p>Hello. @User.Identity?.Name</p>
-
-	var currentlyUser = Model.User.First(x => x.Email == @User.Identity.Name);
-
-    IQueryable<string> eeee = Model.UserBoard.Where(x => x.UserId == currentlyUser.Id)
-        .Select(x => x.BoardId);
-
-    var res = Model.Board.Where(x => eeee.Contains(x.BoardId));
-
-    <h2>Id User: @currentlyUser.Id</h2>
-
-    @foreach(var elem in res){
-        <p>Title: @elem.Title</p>
-        <p>Description: @elem.Description</p>
-        <p>Creator: @elem.UserId</p>
-        <p>Link: <a href= "../board/Info/@elem.BoardId">Click</a></p>
-    }
-    
-    <p>Add board: <a href= "../board/Create">Click</a></p>
-
+@foreach(var elem in @Model)
+{
+    <p>Title: @elem.Title</p>
+    <p>Description: @elem.Description</p>
+    <p>Creator: @elem.UserId</p>
+    <p>Link: @Html.RouteLink("Click", new { controller = "Board", action = "Info", BoardId = @elem.BoardId } )</p>
 }
 
-
+<p>Add board: <a href= "../board/Create">Click</a></p>

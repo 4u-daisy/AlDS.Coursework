@@ -15,9 +15,23 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string email)
         {
-            return View(_dbContext);
+            var user = _dbContext.User
+                .First(x=>x.Email == email);
+
+            ViewData["Name"] = user.Name;
+
+            var userBoard = _dbContext.UserBoard
+                .Where(x => x.UserId == user.Id);
+
+            var boards = new List<Board.BoardModel.Board>();
+            foreach (var elem in userBoard)
+            {
+                boards.Add(_dbContext.Board.First(x => x.BoardId == elem.BoardId));
+            }
+
+            return View(boards);
         }
     }
 }

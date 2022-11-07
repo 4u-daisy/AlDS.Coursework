@@ -1,4 +1,42 @@
 ﻿@page
 @model IndexModel
+@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
-<p>meow</p>
+<header class="main_head">
+    <div class="container">
+        <nav class="nav_main">
+            <h3 class="logo">DAISY</h3>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <ul>
+                    <li><a href="Person/Index?email=@User.Identity.Name">Профиль</a></li>
+                    <li>
+                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                        <button class="button_main" type="submit">Выйти из аккаунта</button>
+                        </form>
+                    </li>
+                </ul>
+            }
+            else
+            {
+             <ul>
+                <li><a asp-area="Identity" asp-page="/Account/Login">Войти</a></li>
+                <li><a asp-area="Identity" asp-page="/Account/Register">Зарегистрироваться</a></li>
+            </ul>
+            }
+
+        </nav>
+
+    </div>
+</header>
+
+<main class="main_main">
+    <p class="main_main_text">Контролируй свою реальность</p>
+</main>
+
+<footer class="main_footer">
+    <p class="main_footer_text">Курсовая работа по дисциплине "Алгоритмы и структуры данных". Никифорова Дарья, 6312, 2022г.</p>
+</footer>
