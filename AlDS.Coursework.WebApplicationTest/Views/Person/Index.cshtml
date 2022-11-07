@@ -8,14 +8,46 @@
 
 @model List<AlDS.Coursework.Board.BoardModel.Board>
 
-<h2>Hello, @ViewData["Name"]</h2>
-
-@foreach(var elem in @Model)
-{
-    <p>Title: @elem.Title</p>
-    <p>Description: @elem.Description</p>
-    <p>Creator: @elem.UserId</p>
-    <p>Link: @Html.RouteLink("Click", new { controller = "Board", action = "Info", BoardId = @elem.BoardId } )</p>
+@{
+    Layout = "../../Pages/Shared/_Layout.cshtml";
 }
 
-<p>Add board: <a href= "../board/Create">Click</a></p>
+<body class="body_container">
+
+<header class="person_head">
+    <div class="container">
+        <nav class="nav_main">
+            <h3 class="logo">DAISY</h3>
+                <ul>
+                    <li><a href="../">На главную</a></li>
+                    <li>
+                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                        <button class="button_main" type="submit">Выйти из аккаунта</button>
+                        </form>
+                    </li>
+                </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <h2>Hello, @ViewData["Name"]</h2>
+
+    @foreach(var elem in @Model)
+    {
+        <p>Title: @elem.Title</p>
+        <p>Description: @elem.Description</p>
+        <p>Creator: @elem.UserId</p>
+        <p>Link: @Html.RouteLink("Click", new { controller = "Board", action = "Info", BoardId = @elem.BoardId } )</p>
+    }
+
+    <p>Add board: <a href= "../board/Create">Click</a></p>
+</main>
+
+
+<footer class="main_footer">
+    <p class="main_footer_text">Курсовая работа по дисциплине "Алгоритмы и структуры данных". Никифорова Дарья, 6312, 2022г.</p>
+</footer>
+
+</body>
