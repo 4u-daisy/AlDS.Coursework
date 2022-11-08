@@ -32,8 +32,9 @@
 
 <main>
 
-    <h2>Hello, @ViewData["Name"]</h2>
+    <h2 class="h2_person">Hello, @ViewData["Name"]</h2>
 
+    <div class="div_board">
     @foreach(var elem in @Model)
     {
         <p>Title: @elem.Title</p>
@@ -43,11 +44,11 @@
     }
 
     <p>Add board: <a href= "../board/Create">Click</a></p>
+    </div>
+
 </main>
 
 
-<footer class="main_footer">
-    <p class="main_footer_text">Курсовая работа по дисциплине "Алгоритмы и структуры данных". Никифорова Дарья, 6312, 2022г.</p>
-</footer>
+
 
 </body>

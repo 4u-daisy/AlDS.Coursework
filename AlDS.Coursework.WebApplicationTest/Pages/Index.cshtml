@@ -5,18 +5,30 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-<header class="main_head">
-    <div class="container">
-        <nav class="nav_main">
-            <h3 class="logo">DAISY</h3>
+
+<body class="main_page">
+
+    <header class="main_header">
+
+        <div class="logo">
+            <span class="logo_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
+
+        <div class="heared_main_block">
+
+            <div class="account_block">
+            <nav class="nav_main">
             @if (SignInManager.IsSignedIn(User))
             {
                 <ul>
                     <li><a href="Person/Index?email=@User.Identity.Name">Профиль</a></li>
                     <li>
-                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                        <div class=ef>
+                        <form class="form_asp" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
                         <button class="button_main" type="submit">Выйти из аккаунта</button>
                         </form>
+                        </div>
+
                     </li>
                 </ul>
             }
@@ -30,13 +42,100 @@
 
         </nav>
 
+            </div>
+
+            <div class="header_nice_block">
+                <p class="p_header">Daisy</p>
+                <p class="p_text">Контролируй свою реальность</p>
+
+                <div class="main_header_link_bloc">
+                    <div class="box">
+                        <p class="main_header_link_bloc_text"><a class="button" href="#info">Узнать больше</a></p>
+                        <p class="main_header_link_bloc_text"><a class="button" href="#try">Попробовать</a></p>
+                        <p class="main_header_link_bloc_text"><a class="button" href="#contacts">Контакты</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main_footer">
+            <p class="main_footer_text">Курсовая работа по дисциплине "Алгоритмы и структуры данных". Никифорова Дарья, 6312, 2022г.</p>
+        </div>
+    </header>
+
+
+    <div id="info" class="overlay">
+        <div class="popup">
+            <div class="content">
+
+                <img class="photo_img" src="/img/233600.jpg" />
+                <div class="popup_info_text">
+                    <h2 class="h2_popup">Узнай больше</h2>
+                    <p class="popup_paragraph">Узнай больше об этом сайте!</p>
+                    <p class="popup_paragraph">По-хорошему, мне бы надо заполнить это пространство мотивирующим текстом</p>
+                    <p class="popup_paragraph">Ну, текст, который будет мотивировать использовать это подобие Trello</p>
+                    <p class="popup_paragraph">Но... Мне лень приудмывать что-то</p>
+                    <p class="popup_paragraph">Поэтому временно будет так.</p>
+                    <p class="popup_paragraph">Надеюсь, что не забуду это убрать, когда понесу показывать свою работу</p>
+                    <p class="popup_paragraph">Поэтому, если Вы вдруг это читаете - извините (:</p>
+                </div>
+                <a class="close" href="..">&times;</a>
+
+            </div>
+        </div>
     </div>
-</header>
 
-<main class="main_main">
-    <p class="main_main_text">Контролируй свою реальность</p>
-</main>
+    <div id="try" class="overlay">
+        <div class="popup">
+            <div class="content">
 
-<footer class="main_footer">
-    <p class="main_footer_text">Курсовая работа по дисциплине "Алгоритмы и структуры данных". Никифорова Дарья, 6312, 2022г.</p>
-</footer>
+                <img class="photo_try_img" src="/img/try.jpg"/>
+                <div class="popup_try_text">
+                    <h2 class="h2_popup">Хотите попробовать?</h2>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <p class="account_block_text"><a href="Person/Index?email=@User.Identity.Name">Аккаунт</a></p>
+                <p class="account_block_text">
+                   <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                   <button class="button_main" type="submit">Выйти из аккаунта</button>
+                   </form>
+                </p>
+            }
+            else
+            {
+                <p class="account_block_text"><a asp-area="Identity" asp-page="/Account/Login">Войти</a></p>
+                <p class="account_block_text"><a asp-area="Identity" asp-page="/Account/Register">Зарегистрироваться</a></p>
+            }
+                    <p class="popup_paragraph">Не хотите?<br />Значит вернитесь на первый пункт</p>
+                </div> 
+                <a class="close" href="..">&times;</a>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="contacts" class="overlay">
+        <div class="popup">
+            <div class="content">
+                <div class="popup_try_text">
+                    <h2 class="h2_popup">Захотел с нами (мной, я хорошая) связаться?</h2>
+                    <p class="popup_paragraph">Email: n_daisy1@mail.ru</p>
+                    <p class="popup_paragraph">github: https://github.com/4u-daisy</p>
+                    <p class="popup_paragraph">tg: daisy_4u</p>
+
+                </div>
+                <img class="photo_contact_img" src="/img/cont.jpg" />
+
+                <a class="close" href="..">&times;</a>
+
+            </div>
+            </div>
+        </div>
+
+
+</body>
+
+
+
