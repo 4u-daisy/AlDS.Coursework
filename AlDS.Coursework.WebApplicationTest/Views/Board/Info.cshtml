@@ -6,81 +6,89 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
 @model AlDS.Coursework.Board.BoardModel.Board;
 
-    <style>
-      #okno {
-        text-align: left;
-        color: #0000cc;
-        display: none;
-        position: absolute;
-      }
-      #okno:target {display: block;}
-      .close {
-        display: inline-block;
-        color: #0000cc;
-        text-decoration: none;
-        background: #f2f2f2;
-        cursor:pointer;
-      }
-      .close:hover {background: #e6e6ff;}
+@{
+    Layout = "../../Pages/Shared/_Layout.cshtml";
+}
 
 
-      {box-sizing: border-box;}
-    </style>
 
-
-<script>
-</script>
-
-
-<p>Info</p>
-
-
-@if (SignInManager.IsSignedIn(User))
-{
-    <p>meow</p>
-    <p>@Model.Cards.Count()</p>
-    @foreach (var item in @Model.Cards)
-    {
-        <p>Card: @item.Title</p>
-        <p>Id: @item.CardId</p>
-        <p>Edit: @Html.RouteLink("Click", new { controller = "Card", action = "Edit", id = @item.CardId, BoardId = @Model.BoardId } )</p>
-        <p>Delete: @Html.RouteLink("Click", new { controller = "Card", action = "Delete", id = @item.CardId, BoardId = @Model.BoardId } )</p>
-
-        @foreach(var elem in @item.Notes)
-        {
-            <p>Note: @elem.Title</p>
-            <p>Info: @Html.RouteLink("Click", new { controller = "Note", action = "Index", id = @elem.NoteId } )</p>
-            <p>Edit: @Html.RouteLink("Click", new { controller = "Note", action = "Edit", id = @elem.NoteId } )</p>
-            <p>Delete: @Html.RouteLink("Click", new { controller = "Note", action = "Delete", id = @elem.NoteId, BoardId = @item.BoardId } )</p>
-        }
-        <a href="#okno">Добавить заметку? @item.CardId </a>
-
-        // TODO Узнать id текущего пользователя
-        <div id="okno">
-          <form asp-action="Create" method="post">
-             <input type="hidden" name="CreatorId" value = @User.Identity.Name>
-             <input type="hidden" name="CardId" value = @item.CardId>
-             <input type="hidden" name="BoardId" value = @item.BoardId>
-            <label>Title:</label><br />
-            <input type="text" name="Title" /><br /><br />
-            <label>Text:</label><br />
-            <input type="text" name="Text" /><br /><br />
-            <input formaction="../../Note/Create" type="submit" value="Отправить" />
-          </form>
-         <a href="#" class="close">Закрыть окно</a>
+<div class="person_main_page">
+     <header class="person_header_main_menu">
+        <div class="person_header_links">
+            <a class="person_header_link" href="../">На главную</a>
+            <div class="person_header_link">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                <button class="button_main" type="submit">Выйти из аккаунта</button>
+                </form>
+            </div>
         </div>
-    }
-    <p>Add Card: @Html.RouteLink("Click", new { controller = "Card", action = "Create", BoardId = @Model.BoardId } )</p>
+        <div class="logo">
+            <span class="person_logo_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
+    </header>
+
+    <div class="board">
+
+        <div class="board_information">
+            <p>@Model.Title</p>
+        </div>
+
+        <div class="board_setting"> 
+            <table class="board_details">
+                @foreach(var elem in @Model.Cards)
+                {
+                    <tr class="table_details">
+                        <td class="td_details">
+                            <p>@elem.Title</p>
+                            <p>Настройки (Тут будет ссылка)</p>
+                        </td>
+                        @foreach(var note in elem.Notes)
+                        {
+                            <td class="td_board">
+                                <p>@note.Title</p>
+                                <p>@note.Description</p>
+                                <p>@Html.RouteLink("Info", new { controller = "Note", action = "Index", id = @note.NoteId } )</p>
+                            </td>
+                        }
+                        <td class="td_board">
+                            <p><a href="#add">Add notes</a></p>
+                        </td>
+                        <td>
+       
+
+                            <div >
+                              <form asp-action="Create" method="post">
+                                 <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+                                 <input type="hidden" name="CardId" value = @elem.CardId>
+                                 <input type="hidden" name="BoardId" value = @elem.BoardId>
+                                <label>Title:</label><br />
+                                <input type="text" name="Title" /><br /><br />
+                                <label>Text:</label><br />
+                                <input type="text" name="Text" /><br /><br />
+                                <input formaction="../../Note/Create" type="submit" value="Отправить" />
+                              </form>
+                              <a href="#" class="close">Закрыть окно</a>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+        </table>
+
+
+
+        </div>
+
+
+
+    </div>
+
 
 
    @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 
-}
-
-
-
- 

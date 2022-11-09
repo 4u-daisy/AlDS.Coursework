@@ -12,43 +12,45 @@
     Layout = "../../Pages/Shared/_Layout.cshtml";
 }
 
-<body class="body_container">
 
-<header class="person_head">
-    <div class="container">
-        <nav class="nav_main">
-            <h3 class="logo">DAISY</h3>
-                <ul>
-                    <li><a href="../">На главную</a></li>
-                    <li>
-                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
-                        <button class="button_main" type="submit">Выйти из аккаунта</button>
-                        </form>
-                    </li>
-                </ul>
-        </nav>
+<div class="person_main_page">
+
+    <header class="person_header_main_menu">
+        <div class="person_header_links">
+            <a class="person_header_link" href="../">На главную</a>
+            <div class="person_header_link">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                <button class="button_main" type="submit">Выйти из аккаунта</button>
+                </form>
+            </div>
+        </div>
+        <div class="logo">
+            <span class="person_logo_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
+    </header>
+
+    <div class="person_board_block">
+        <table class="table_board">
+            @foreach (var item in Model)
+            {
+                <tr class="block_board">
+                    <td class="td_board">
+                    <p>@item.Title</p>
+                    </td>
+                    <td class="td_board">
+                    <p>@item.Description</p>
+                    </td>
+                    <td class="td_board">
+                    @Html.RouteLink("Info", new { controller = "Board", action = "Info", id = @item.BoardId } )
+                    </td>
+                 </tr>
+            }
+        </table>
+
+        <p>Add board: <a href= "../board/Create">Click</a></p>
+
     </div>
-</header>
-
-<main>
-
-    <h2 class="h2_person">Hello, @ViewData["Name"]</h2>
-
-    <div class="div_board">
-    @foreach(var elem in @Model)
-    {
-        <p>Title: @elem.Title</p>
-        <p>Description: @elem.Description</p>
-        <p>Creator: @elem.UserId</p>
-        <p>Link: @Html.RouteLink("Click", new { controller = "Board", action = "Info", BoardId = @elem.BoardId } )</p>
-    }
-
-    <p>Add board: <a href= "../board/Create">Click</a></p>
-    </div>
-
-</main>
 
 
+</div>
 
-
-</body>
