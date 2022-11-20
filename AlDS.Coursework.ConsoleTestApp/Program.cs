@@ -2,20 +2,54 @@
 using AlDS.Coursework.Board.RelatedTablesModel;
 using AlDS.Coursework.Board.UserModel;
 using AlDS.Coursework.Test;
+
+//using Leadtools;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using AlDS.Coursework.PhotoFilters;
 //using AlDS.Coursework.RelatedTables;
 //using Microsoft.EntityFrameworkCore.Design;
 
 //TODO настроить каскадное удаление и удаление в прицнипе
 
-long[] d(long n) => n.ToString().Select(x => long.Parse(x.ToString())).Reverse().ToArray();
 
-var res = d(35231);
-foreach(var elem in res)
-{
-    Console.Write(elem + " ");
-}
+//using (FileStream stream = File.OpenRead("C:\\Users\\HOME\\Desktop\\l.jpg"))
+//{
+//    var image = new Bitmap(stream);
 
-Console.WriteLine("All okay :)");
+//    var pixel = new UInt32[image.Width, image.Height];
+//    var c = new Color[image.Width, image.Height];
+
+//    for (int x = 0; x < image.Width; x++)
+//        for (int y = 0; y < image.Height; y++)
+//        {
+//            pixel[x, y] = (UInt32)(image.GetPixel(x, y).ToArgb());
+//            c[x, y] = image.GetPixel(x, y);
+//        }
+
+
+//    Console.WriteLine(c[300, 300].ToString());
+//    Console.WriteLine(c[300, 300].ToArgb());
+//}
+
+var photo = new PhotoFilter();
+photo.LoadPixels("C:\\Users\\HOME\\Desktop\\test.jpg");
+
+photo.ApplySobel();
+photo.Save("C:\\Users\\HOME\\Desktop\\tt.jpg");
+
+//photo.Save("C:\\Users\\HOME\\Desktop\\res.jpg");
+
+
+//photo.LoadImage("C:\\Users\\HOME\\Desktop\\test.jpg");
+
+
+//photo.Img = photo.ApplySobelOperator();
+//photo.ConvertToBitmap().Save("C:\\Users\\HOME\\Desktop\\myitog.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+
+
 
 //var board = new Board()
 //{

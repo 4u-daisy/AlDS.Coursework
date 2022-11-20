@@ -19,10 +19,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AlDS.Coursework.DataBaseModels\AlDS.Coursework.DataBaseModels.csproj" />
+    <ProjectReference Include="..\AlDS.Coursework.PhotoFilters\AlDS.Coursework.PhotoFilters.csproj" />
   </ItemGroup>
 
 </Project>
