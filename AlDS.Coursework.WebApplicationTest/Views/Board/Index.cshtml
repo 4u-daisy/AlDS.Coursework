@@ -15,21 +15,7 @@
 
 
 
-<div class="person_main_page">
-     <header class="person_header_main_menu">
-        <div class="person_header_links">
-            <a class="person_header_link" href="../">На главную</a>
-            <div class="person_header_link">
-                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
-                <button class="button_main" type="submit">Выйти из аккаунта</button>
-                </form>
-            </div>
-        </div>
-        <div class="logo">
-            <span class="person_logo_size"><i class="bi bi-tablet-landscape"></i></span>
-        </div>
-    </header>
-
+<div class="board_index">
 
     <div class="board">
 
@@ -45,15 +31,16 @@
                 {
                     <tr class="table_details">
                         <td class="td_details">
-                            <p>@elem.Title</p>
-                            <p>Настройки (Тут будет ссылка)</p>
+                            <a class="a_board" href="../Card/Edit/@elem.CardId">
+                                <p class="p_board">@elem.Title</p>
+                            </a>
                         </td>
                         @foreach(var note in elem.Notes)
                         {
                             <td class="td_board_name">
-                                <p>@note.Title</p>
-                                <p>@note.Description</p>
-                                <p>@Html.RouteLink("Info", new { controller = "Note", action = "Index", id = @note.NoteId } )</p>
+                                <a class="a_board" href="../Note/Index/@note.NoteId">
+                                    <p class="p_board">@note.Title</p>
+                                </a>
                             </td>
                         }
                         <td class="td_board_name">
@@ -61,8 +48,7 @@
                                  <input type="hidden" name="CreatorId" value = @User.Identity.Name>
                                  <input type="hidden" name="CardId" value = @elem.CardId>
                                  <input type="hidden" name="BoardId" value = @elem.BoardId>
-                                <label>Add new notes:</label>
-                                <input type="text" name="Title" />
+                                <input class="placeholderCard" type="text" name="Title" placeholder="Введите название новой карты"/>
                                 <input formaction="../../Note/Create" type="submit" value="Отправить" />
                               </form>                            
                         </td>
