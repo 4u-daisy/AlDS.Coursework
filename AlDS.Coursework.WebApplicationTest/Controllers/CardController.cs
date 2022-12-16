@@ -36,7 +36,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             card.CreatorId = user.Id;
             _context.Add(card);
             await _context.SaveChangesAsync();
-            return Redirect("../Board/Info/" + card.BoardId);
+            return Redirect("../Board/Index/" + card.BoardId);
  
         }
 
@@ -69,7 +69,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.SaveChanges();
 
-            return Redirect("../../Board/Info/" + updCard.BoardId);
+            return Redirect("../../Board/Index/" + updCard.BoardId);
         }
 
 

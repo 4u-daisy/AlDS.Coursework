@@ -1,66 +1,92 @@
-﻿@model IEnumerable<AlDS.Coursework.Board.BoardModel.Board>
+﻿@using AlDS.Coursework.Board.BoardModel;
+@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@using AlDS.Coursework.Board.RelatedTablesModel
+@using AlDS.Coursework.WebApplicationTest.Data
 
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model AlDS.Coursework.Board.BoardModel.Board;
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "../../Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Space)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateUpdated)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Space)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateUpdated)
-            </td>
-            <td>
-                <a href = "/Board/Edit/@item.BoardId" asp-action="Edit" asp-route-id="@item.BoardId">Edit</a> |
-                <a href = "/Board/Details/@item.BoardId" asp-action="Details" asp-route-id="@item.BoardId">Details</a> |
-                <a href = "/Board/Delete/@item.BoardId" asp-action="Delete" asp-route-id="@item.BoardId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="person_main_page">
+     <header class="person_header_main_menu">
+        <div class="person_header_links">
+            <a class="person_header_link" href="../">На главную</a>
+            <div class="person_header_link">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                <button class="button_main" type="submit">Выйти из аккаунта</button>
+                </form>
+            </div>
+        </div>
+        <div class="logo">
+            <span class="person_logo_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
+    </header>
+
+
+    <div class="board">
+
+        <div class="board_information">
+            <p>@Model.Title</p>
+        </div>
+
+        <div class="board_setting"> 
+
+            <table class="board_details">
+                <tbody class ="board_details">
+                @foreach(var elem in @Model.Cards)
+                {
+                    <tr class="table_details">
+                        <td class="td_details">
+                            <p>@elem.Title</p>
+                            <p>Настройки (Тут будет ссылка)</p>
+                        </td>
+                        @foreach(var note in elem.Notes)
+                        {
+                            <td class="td_board_name">
+                                <p>@note.Title</p>
+                                <p>@note.Description</p>
+                                <p>@Html.RouteLink("Info", new { controller = "Note", action = "Index", id = @note.NoteId } )</p>
+                            </td>
+                        }
+                        <td class="td_board_name">
+                              <form asp-action="Create" method="post">
+                                 <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+                                 <input type="hidden" name="CardId" value = @elem.CardId>
+                                 <input type="hidden" name="BoardId" value = @elem.BoardId>
+                                <label>Add new notes:</label>
+                                <input type="text" name="Title" />
+                                <input formaction="../../Note/Create" type="submit" value="Отправить" />
+                              </form>                            
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            <div class="board_details">
+                <form method="post">
+                   <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+                   <input type="hidden" name="BoardId" value = @Model.BoardId>
+                  <label>Add new card:</label>
+                  <input type="text" name="Title"/>
+
+                  <input formaction="../../Card/Create" type="submit" value="Добавить" />
+                </form>  
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+   @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+

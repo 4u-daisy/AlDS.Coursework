@@ -60,7 +60,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             if (BoardId == "")
                 return View(note);
 
-            return Redirect("../../Board/Info/" + BoardId);
+            return Redirect("../../Board/Index/" + BoardId);
         }
 
         public async Task<IActionResult> Edit(string id)

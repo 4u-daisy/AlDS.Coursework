@@ -16,17 +16,7 @@
 <div class="person_main_page">
 
     <header class="person_header_main_menu">
-        <div class="person_header_links">
-            <a class="person_header_link" href="../">На главную</a>
-            <div class="person_header_link">
-                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
-                <button class="button_main" type="submit">Выйти из аккаунта</button>
-                </form>
-            </div>
-        </div>
-        <div class="logo">
-            <span class="person_logo_size"><i class="bi bi-tablet-landscape"></i></span>
-        </div>
+
     </header>
 
     <div class="person_board_block">
@@ -35,19 +25,23 @@
             {
                 <tr class="block_board">
                     <td class="td_board">
-                    <p>@item.Title</p>
+                        <a href="../board/Index/@item.BoardId" class="a_board">
+                            <div>
+                             <p class="p_board">@item.Title</p>
+                             <p class="p_board">@item.Description</p>
+                            </div>
+                        </a>
                     </td>
-                    <td class="td_board">
-                    <p>@item.Description</p>
-                    </td>
-                    <td class="td_board">
-                    @Html.RouteLink("Info", new { controller = "Board", action = "Info", id = @item.BoardId } )
-                    </td>
-                 </tr>
+                </tr>
             }
         </table>
-
-        <p>Add board: <a href= "../board/Create">Click</a></p>
+        <div class="block_board">
+            <a href="../board/Create" class="a_board">
+                <div>
+                 <p class="p_board">Add Board</p>
+                </div>
+            </a>
+        </div>
 
     </div>
 

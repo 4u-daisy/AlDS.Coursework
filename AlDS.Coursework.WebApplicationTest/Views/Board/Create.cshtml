@@ -25,11 +25,12 @@
         <div class="col-md-4">
             <form asp-action="Create" method="post">
                 <div class="form-group">
+                    <p>Input title</p>
                     @Html.EditorFor(model => model.Title)
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Description)
-                        @Html.EditorFor(model => model.Space)
-                    </div>
+                    <p>Input desc</p>
+                    @Html.EditorFor(model => model.Description)
+                    <p>Input space</p>
+                    @Html.EditorFor(model => model.Space)
                     <input type="hidden" name="UserId" value = @User.Identity.Name>
                 </div>
                 <div class="form-group">

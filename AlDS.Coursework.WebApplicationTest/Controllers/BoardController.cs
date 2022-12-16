@@ -22,13 +22,13 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         // GET: Board
-        public async Task<IActionResult> Index()
-        {
-              return View(await _context.Board.ToListAsync());
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Board.ToListAsync());
+        //}
 
         [HttpGet]
-        public async Task<IActionResult> Info(string id)
+        public async Task<IActionResult> Index(string id)
         {
             if (id == null || _context.Board == null)
             {
@@ -95,7 +95,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             await _context.UserBoard.AddAsync(newUserBoard);
 
             await _context.SaveChangesAsync();
-            return Redirect("../board/" + newBoard.BoardId);
+            return Redirect("../board/Index/" + newBoard.BoardId);
         }
 
         /*
@@ -145,7 +145,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             //_context.Update(updBoard);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return Redirect("../board/Index/" + updBoard.BoardId);
         }
 
         // GET: Board/Delete/5
