@@ -12,25 +12,7 @@
 @{
     Layout = "../../Pages/Shared/_Layout.cshtml";
 }
-<script >
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
 
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>
 
 
 <div class="person_main_page">
@@ -38,7 +20,7 @@ window.onclick = function(event) {
     <div class="board">
 
         <div class="board_information">
-            <p>@Model.Title</p>
+            <p class="p_board">@Model.Title</p>         
         </div>
 
         <div class="board_setting"> 
@@ -49,22 +31,7 @@ window.onclick = function(event) {
                 {
                     <tr class="table_details">
                         <td class="td_details">
-                        <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">@elem.Title</button>
-                          <div id="myDropdown" class="dropdown-content">
-                                <p>@elem.CardId</p>
-                                @Html.RouteLink("Delete", new { controller = "Card", action = "Delete", id = @elem.CardId, BoardId=@elem.BoardId } )
-                               
-                                <form asp-action="Edit" method="post">
-                                    <input type="hidden" name="CreatorId" value = @User.Identity.Name>
-                                    <input type="hidden" name="CardId" value = @elem.CardId>
-                                    <input type="hidden" name="BoardId" value = @elem.BoardId>
-                                    <input class="placeholderCard" type="text" name="Title" placeholder="Изменить название"/>
-                                    <input formaction="../../Card/edit" type="submit" value="Отправить" />
-                                </form>     
-                        </div>
-
-                        </div>
+                            <p class="p_board">@elem.Title</p>
                         </td>
                         @foreach(var note in elem.Notes)
                         {
@@ -83,6 +50,9 @@ window.onclick = function(event) {
                                 <input formaction="../../Note/Create" type="submit" value="Отправить" />
                               </form>                            
                         </td>
+                        <td class="td_board_name">
+                                @Html.RouteLink("Delete", new { controller = "Card", action = "Delete", id = @elem.CardId, BoardId=@elem.BoardId } )
+                        </td>
                     </tr>
                 }
                 </tbody>
@@ -92,7 +62,6 @@ window.onclick = function(event) {
                    <input type="hidden" name="CreatorId" value = @User.Identity.Name>
                    <input type="hidden" name="BoardId" value = @Model.BoardId>
                    <input class="p_board" type="text" name="Title" placeholder="Добавить новые дела" />
-
                   <input formaction="../../Card/Create" type="submit" value="Окей" />
                 </form>  
             </div>
@@ -106,3 +75,24 @@ window.onclick = function(event) {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>

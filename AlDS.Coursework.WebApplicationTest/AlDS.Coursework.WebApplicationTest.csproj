@@ -33,8 +33,4 @@
     <ProjectReference Include="..\AlDS.Coursework.DataBaseModels\AlDS.Coursework.DataBaseModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Card\" />
-  </ItemGroup>
-
 </Project>

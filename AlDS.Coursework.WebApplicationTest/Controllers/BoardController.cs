@@ -149,7 +149,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         // GET: Board/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, string email)
         {
             if (id == null || _context.Board == null)
             {
@@ -171,7 +171,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Redirect("..");
+            return Redirect("../../Person/Index/?email=" + email);
         }
 
         // POST: Board/Delete/5

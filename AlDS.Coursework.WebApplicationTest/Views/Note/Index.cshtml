@@ -28,7 +28,19 @@
 		</div>
 
 		<div class="note_text">
-			<p>@Model.Text</p>
+			            <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
+                        <input type="hidden" name="CreatorId" value = @Model.CreatorId>
+                        <input type="hidden" name ="CardId" value = @Model.CardId>
+
+                        <input class="p_board" type="hidden" name="Title" placeholder="Название" />
+                        <input class="p_board" type="hidden" name="Description" placeholder="Описание" />
+                        <p class="p_board"><textarea  name="Text">@Model.Text</textarea></p>
+
+
+                        <input formaction="../Edit" type="submit" value="Отправить" />
+
+                </form>
 		</div>
 
 	</div>

@@ -5,6 +5,18 @@
 }
 
 
+a{
+    text-decoration: none;
+    color: #000000;
+}
+
+input {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    font-family: 'Inter';
+    font-style: normal;
+}
+
 body {
     position: absolute;
     width: 100%;
@@ -613,10 +625,8 @@ tbody.board_details {
     box-sizing: border-box;
 }
 
-
 .dropbtn {
-    background-color: rgba(0,0,0,0);
-    color: #000000;
+    background-color: none;
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -628,15 +638,16 @@ tbody.board_details {
     }
 
 .dropdown {
+    position: relative;
     display: inline-block;
 }
 
 .dropdown-content {
-    position: relative;
-    top: 0%;
+    display: none;
+    position: absolute;
     background-color: none;
     min-width: 160px;
-    box-shadow: none;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
@@ -645,16 +656,14 @@ tbody.board_details {
         padding: 12px 16px;
         text-decoration: none;
         display: block;
-        background-color: none;
     }
 
-.dropdown a:hover {
-    background-color: none;
-}
+        .dropdown-content a:hover {
+            background-color: none;
+        }
 
 .show {
     display: block;
-    background-color: none;
 }
 
 

@@ -13,41 +13,53 @@
 }
 
 
-@if (SignInManager.IsSignedIn(User))
-{
-    var elemName = @User.Identity.Name;
-   
-    <h1>Create</h1>
-    
-    <h4>Board</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Create" method="post">
-                <div class="form-group">
-                    <p>Input title</p>
-                    @Html.EditorFor(model => model.Title)
-                    <p>Input desc</p>
-                    @Html.EditorFor(model => model.Description)
-                    <p>Input space</p>
-                    @Html.EditorFor(model => model.Space)
-                    <input type="hidden" name="UserId" value = @User.Identity.Name>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
 
 
-
+@{
+    Layout = "../../Pages/Shared/_Layout.cshtml";
 }
+
+
+
+<div class="person_main_page">
+
+    <div class="board">
+
+        <div class="board_setting"> 
+            <div >
+                    <div class="form-group">
+
+                <form asp-action="Create" method="post">
+                        <input class="p_board" type="text" name="Title" placeholder="Название" />
+                        <input class="p_board" type="text" name="Description" placeholder="Описание" />
+                        <input class="p_board" type="text" name="Space" placeholder="Введите пространство" />
+                        <input type="hidden" name="UserId" value = @User.Identity.Name>
+                    <div class="form-group">
+                        <input type="submit" value="Create" />
+                    </div>
+                </form>
+                                    </div>
+
+                <a href=".." class="p_board">Вернуться назад</a>
+            </div>
+        
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
