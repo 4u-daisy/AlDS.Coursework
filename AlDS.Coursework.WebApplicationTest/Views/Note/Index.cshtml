@@ -8,24 +8,52 @@
 @inject UserManager<User> UserManager
 
 @model AlDS.Coursework.Board.BoardModel.Note
-
-<p>Index</p>
-
-@if (SignInManager.IsSignedIn(User))
-{
-	<p>Title: @Model.Title</p>
-	<p>Desc: @Model.Description</p>
-	<p>Text: @Model.Text</p>
-	<p>CrearotId: @Model.CreatorId</p>
-	
-	<p>Edit: <a href="../Edit/@Model.NoteId">Click</a></p>
-	<p>Delete: <a href="../Delete/@Model.NoteId">Click</a></p>
-
-	
-	<p>Go to Board (Person): <a href="../../Board">Click</a></p>
-
-	@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-	}
-    
+@{
+    Layout = "../../Pages/Shared/_Layout.cshtml";
 }
+
+
+<div class="person_main_page">
+
+	<div class="note">
+        <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn">@Model.Title</button>
+          <div id="myDropdown" class="dropdown-content">
+            <a href="#">Удалить</a>
+            <a href="#">Изменить название</a>
+          </div>
+        </div>
+		<div class="note_title">
+			<p>@Model.Description</p>
+		</div>
+
+		<div class="note_text">
+			<p>@Model.Text</p>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<script>
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+

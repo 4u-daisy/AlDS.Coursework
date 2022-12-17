@@ -90,7 +90,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             _context.Card.Remove(card);
             _context.SaveChanges();
 
-            return Redirect("../../Board/Info/" + BoardId);
+            return Redirect("../../Board/Index/" + BoardId);
         }
 
         // POST: Card/Delete/5

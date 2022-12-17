@@ -17,7 +17,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             _context = context;
         }
 
-        // GET: Note
         [HttpGet]
         public async Task<IActionResult> Index(string id)
         {

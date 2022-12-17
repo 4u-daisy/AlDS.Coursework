@@ -12,10 +12,28 @@
 @{
     Layout = "../../Pages/Shared/_Layout.cshtml";
 }
+<script >
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
 
 
-
-<div class="board_index">
+<div class="person_main_page">
 
     <div class="board">
 
@@ -31,14 +49,27 @@
                 {
                     <tr class="table_details">
                         <td class="td_details">
-                            <a class="a_board" href="../Card/Edit/@elem.CardId">
-                                <p class="p_board">@elem.Title</p>
-                            </a>
+                        <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">@elem.Title</button>
+                          <div id="myDropdown" class="dropdown-content">
+                                <p>@elem.CardId</p>
+                                @Html.RouteLink("Delete", new { controller = "Card", action = "Delete", id = @elem.CardId, BoardId=@elem.BoardId } )
+                               
+                                <form asp-action="Edit" method="post">
+                                    <input type="hidden" name="CreatorId" value = @User.Identity.Name>
+                                    <input type="hidden" name="CardId" value = @elem.CardId>
+                                    <input type="hidden" name="BoardId" value = @elem.BoardId>
+                                    <input class="placeholderCard" type="text" name="Title" placeholder="Изменить название"/>
+                                    <input formaction="../../Card/edit" type="submit" value="Отправить" />
+                                </form>     
+                        </div>
+
+                        </div>
                         </td>
                         @foreach(var note in elem.Notes)
                         {
                             <td class="td_board_name">
-                                <a class="a_board" href="../Note/Index/@note.NoteId">
+                                <a class="a_board" href="../../Note/Index/@note.NoteId">
                                     <p class="p_board">@note.Title</p>
                                 </a>
                             </td>
@@ -60,10 +91,9 @@
                 <form method="post">
                    <input type="hidden" name="CreatorId" value = @User.Identity.Name>
                    <input type="hidden" name="BoardId" value = @Model.BoardId>
-                  <label>Add new card:</label>
-                  <input type="text" name="Title"/>
+                   <input class="p_board" type="text" name="Title" placeholder="Добавить новые дела" />
 
-                  <input formaction="../../Card/Create" type="submit" value="Добавить" />
+                  <input formaction="../../Card/Create" type="submit" value="Окей" />
                 </form>  
             </div>
         </div>
