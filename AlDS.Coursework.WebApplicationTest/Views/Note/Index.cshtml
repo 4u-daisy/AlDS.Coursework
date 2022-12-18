@@ -12,8 +12,27 @@
     Layout = "../../Pages/Shared/_Layout.cshtml";
 }
 
+@{
+    ViewData["Id"] = "Index";
+}
+
 
 <div class="person_main_page">
+    
+    <header class="Title">
+        <div class="headers_link">
+            <a class="identity" href="../../Board/Index/@ViewData["Id"]">Вернуться на ту страницу</a>
+            <a class="identity" href="https://localhost:7240/">На главную</a>
+            <div class="identity">
+                <form class="button_identity" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                <button class="button_identity" type="submit">Выйти из аккаунта</button>
+                </form>
+            </div>
+        </div>
+        <div class="icon">
+            <span class="icon_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
+    </header>
 
 	<div class="note">
         <div class="dropdown">
@@ -26,17 +45,18 @@
 		<div class="note_title">
 			<p>@Model.Description</p>
 		</div>
-
+        <p class="p_board">@Model.NoteId</p>
 		<div class="note_text">
 			            <form asp-action="Edit" method="post">
                         <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
                         <input type="hidden" name="CreatorId" value = @Model.CreatorId>
                         <input type="hidden" name ="CardId" value = @Model.CardId>
 
-                        <input class="p_board" type="hidden" name="Title" placeholder="Название" />
-                        <input class="p_board" type="hidden" name="Description" placeholder="Описание" />
+                        <input type="hidden" name="Title" value=@Model.Title />
+                        <input type="hidden" name="Description" value=@Model.Description/>
                         <p class="p_board"><textarea  name="Text">@Model.Text</textarea></p>
 
+                        <input type="hidden" name="id" value=@Model.NoteId />
 
                         <input formaction="../Edit" type="submit" value="Отправить" />
 

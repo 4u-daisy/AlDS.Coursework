@@ -9,7 +9,6 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.BoardConfigura
         public void Configure(EntityTypeBuilder<AlDS.Coursework.Board.BoardModel.Board> entityTypeBuilder)
         {
             entityTypeBuilder.HasKey(x => x.BoardId);
-            //entityTypeBuilder.HasIndex(x => x.BoardId);
             entityTypeBuilder
                 .HasMany(x => x.Cards)
                 .WithOne(x => x.Board)

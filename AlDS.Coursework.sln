@@ -5,11 +5,9 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlDS.Coursework.Libraries", "AlDS.Coursework.Libraries", "{B76B653E-5972-4640-9484-FEFCBE5B4B02}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlDS.Coursework.Backend", "AlDS.Coursework.Backend", "{98F1BF1E-5F39-4069-A7A6-AB34D9A5B02F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlDS.Coursework.Board", "AlDS.Coursework.Board\AlDS.Coursework.Board.csproj", "{68DEDB48-12B4-4388-91F2-32820C4A2193}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlDS.Coursework.Test", "AlDS.Coursework.Test", "{6B72D35E-C9A6-4A96-80A3-585BAEBBE00F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AlDS.Coursework.Backend", "AlDS.Coursework.Backend", "{6B72D35E-C9A6-4A96-80A3-585BAEBBE00F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlDS.Coursework.ConsoleTestApp", "AlDS.Coursework.ConsoleTestApp\AlDS.Coursework.ConsoleTestApp.csproj", "{EC05AF64-1E53-4964-A527-F01B9E6A4C1D}"
 EndProject
@@ -18,8 +16,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlDS.Coursework.DataBaseModels", "AlDS.Coursework.DataBaseModels\AlDS.Coursework.DataBaseModels.csproj", "{1B60427C-17B2-429E-82FF-A9D89CBEB652}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlDS.Coursework.WebApplicationTest", "AlDS.Coursework.WebApplicationTest\AlDS.Coursework.WebApplicationTest.csproj", "{29D50469-EEFE-4221-8144-C31ABD7FA775}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlDS.Coursework.PhotoFilters", "AlDS.Coursework.PhotoFilters\AlDS.Coursework.PhotoFilters.csproj", "{12B2BCE8-729D-45F1-917B-3C702EC12AA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +39,6 @@ Global
 		{29D50469-EEFE-4221-8144-C31ABD7FA775}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D50469-EEFE-4221-8144-C31ABD7FA775}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D50469-EEFE-4221-8144-C31ABD7FA775}.Release|Any CPU.Build.0 = Release|Any CPU
-		{12B2BCE8-729D-45F1-917B-3C702EC12AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12B2BCE8-729D-45F1-917B-3C702EC12AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12B2BCE8-729D-45F1-917B-3C702EC12AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12B2BCE8-729D-45F1-917B-3C702EC12AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,7 +48,6 @@ Global
 		{EC05AF64-1E53-4964-A527-F01B9E6A4C1D} = {6B72D35E-C9A6-4A96-80A3-585BAEBBE00F}
 		{1B60427C-17B2-429E-82FF-A9D89CBEB652} = {46963CA5-9DB5-4EE6-8854-35717D2D9174}
 		{29D50469-EEFE-4221-8144-C31ABD7FA775} = {6B72D35E-C9A6-4A96-80A3-585BAEBBE00F}
-		{12B2BCE8-729D-45F1-917B-3C702EC12AA9} = {B76B653E-5972-4640-9484-FEFCBE5B4B02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06694888-7D57-40D1-AF66-1BDA43B9AA6A}

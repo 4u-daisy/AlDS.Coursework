@@ -15,8 +15,18 @@
 
 <div class="person_main_page">
 
-    <header class="person_header_main_menu">
-
+    <header class="Title">
+        <div class="headers_link">
+            <a class="identity" href="https://localhost:7240/">На главную</a>
+            <div class="identity">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
+                <button class="button_identity" type="submit">Выйти из аккаунта</button>
+                </form>
+            </div>
+        </div>
+        <div class="icon">
+            <span class="icon_size"><i class="bi bi-tablet-landscape"></i></span>
+        </div>
     </header>
 
     <div class="person_board_block">

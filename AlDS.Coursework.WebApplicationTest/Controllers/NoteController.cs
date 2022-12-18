@@ -18,8 +18,9 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(string id, string boardId="")
         {
+            ViewData["id"] = boardId;
             var elem = await _context.Note
                 .FirstOrDefaultAsync(x=>x.NoteId == id);
 
@@ -80,10 +81,15 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit( [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment")] Note note)
+        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment")] Note note)
         {
+            //if (id != note.NoteId)
+            //{
+            //    return NotFound();
+            //}
+
             var updNote = _context.Note
-                .FirstOrDefault(x => x.NoteId == note.NoteId);
+                .FirstOrDefault(x => x.NoteId == id);
 
             if (updNote == null)
                 return NotFound();
@@ -96,7 +102,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.SaveChanges();
 
-            return Redirect("../Index/" + note.NoteId);
+            return Redirect("Index/"+id);
         }
 
         // GET: Note/Delete/5

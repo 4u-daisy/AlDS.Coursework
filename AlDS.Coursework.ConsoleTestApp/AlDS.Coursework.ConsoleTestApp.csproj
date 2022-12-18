@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlDS.Coursework.DataBaseModels\AlDS.Coursework.DataBaseModels.csproj" />
-    <ProjectReference Include="..\AlDS.Coursework.PhotoFilters\AlDS.Coursework.PhotoFilters.csproj" />
   </ItemGroup>
 
 </Project>
