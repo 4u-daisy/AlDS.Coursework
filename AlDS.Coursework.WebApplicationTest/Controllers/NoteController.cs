@@ -29,6 +29,17 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             var card = await _context.Card
                 .FirstAsync(x => x.CardId == elem.CardId);
+
+            var userExecutes = await _context.User
+                .FirstAsync(x => x.Id == elem.IdUserExecutes);
+
+            var user = await _context.User
+                .FirstAsync(x => x.Id == elem.CreatorId);
+
+            ViewData["userExecutes"] = userExecutes;
+            ViewData["user"] = user;
+
+
             return View(elem);
         }
 
@@ -51,6 +62,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             var newNote = new Note()
             {
                 CreatorId = userId.Id,
+                IdUserExecutes = userId.Id,
                 CardId = note.CardId,
                 Card = note.Card,
                 Title = note.Title,
@@ -86,7 +98,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment")] Note note)
+        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment, Priority")] Note note)
         {
             var updNote = await _context.Note
                 .FirstOrDefaultAsync(x => x.NoteId == id);
@@ -98,6 +110,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             updNote.Description = note.Description;
             updNote.Comment = note.Comment;
             updNote.Title = note.Title;
+            updNote.Priority = note.Priority;
             updNote.DateUpdated = DateTime.UtcNow;
 
             _context.SaveChanges();
@@ -117,6 +130,21 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             return NotFound();
         }
 
+
+        public async Task<IActionResult> UpdateCard(string id, string idNewCard)
+        {
+
+            var note = await _context.Note
+                .FirstAsync(x => x.NoteId == id);
+            var boardId = await _context.Card
+                .FirstAsync(x => x.CardId == idNewCard);
+
+            note.CardId = idNewCard;
+          
+            _context.SaveChanges();
+
+            return Redirect("../../Board/Index/" + boardId.BoardId);
+        }
 
         // GET: Note/Delete/5
         public async Task<IActionResult> Delete(string id)

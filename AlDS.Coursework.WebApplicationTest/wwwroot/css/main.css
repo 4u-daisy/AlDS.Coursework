@@ -786,3 +786,29 @@ tbody.board_details {
     position: relative;
 }
 
+.txtarea_min {
+    background: none;
+    accent-color: aliceblue;
+    width: 100%;
+    position: relative;
+    top: 5%;
+    text-align: center;
+    border: none;
+    min-height: 50%;
+}
+.note_information {
+    display: block;
+    position: fixed;
+    top: 20%;
+    right: 0px;
+    width: 15%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.p_note_information {
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 14px;
+    color: #000000;
+}

@@ -16,7 +16,7 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.UserConfigurat
             entityTypeBuilder
                 .Property(x => x.PasswordHash)
                 .IsRequired()
-                .HasMaxLength(63);
+                .HasMaxLength(127);
             entityTypeBuilder
                 .Property(x => x.Email)
                 .IsRequired()

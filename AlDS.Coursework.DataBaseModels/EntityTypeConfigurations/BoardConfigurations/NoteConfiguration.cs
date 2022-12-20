@@ -8,7 +8,8 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.BoardConfigura
     {
         public void Configure(EntityTypeBuilder<Note> entityTypeBuilder)
         {
-            entityTypeBuilder.HasKey(x => x.NoteId);
+            entityTypeBuilder
+                .HasKey(x => x.NoteId);
             //entityTypeBuilder.HasIndex(x => x.NoteId);
             entityTypeBuilder
                 .Property(x => x.NoteId)
@@ -28,6 +29,18 @@ namespace AlDS.Coursework.DataBaseModels.EntityTypeConfigurations.BoardConfigura
             entityTypeBuilder
                 .Property(x => x.DateCreated)
                 .IsRequired();
+            entityTypeBuilder
+                .Property(x => x.IdUserExecuted)
+                .HasMaxLength(257);
+            entityTypeBuilder
+               .Property(x => x.Priority)
+               .HasMaxLength(63);
+            entityTypeBuilder
+                .Property(x => x.IdUserExecutes)
+                .HasMaxLength(257);
+            entityTypeBuilder
+                .Property(x => x.State)
+                .HasMaxLength(257);
         }
     }
 }

@@ -42,7 +42,7 @@
 			<p>@Model.Description</p>
 		</div>
 		<div class="note_text">
-			            <form asp-action="Edit" method="post">
+			    <form asp-action="Edit" method="post">
                         <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
                         <input type="hidden" name="CreatorId" value = @Model.CreatorId>
                         <input type="hidden" name ="CardId" value = @Model.CardId>
@@ -54,9 +54,30 @@
                         <input type="hidden" name="id" value=@Model.NoteId />
 
                         <input formaction="../Edit" type="submit" value="Сохранить изменения" />
-
                 </form>
 		</div>
+
+        <div class="note_information">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
+                <input type="hidden" name="CreatorId" value = @Model.CreatorId>
+                <input type="hidden" name ="CardId" value = @Model.CardId>
+                <input type="hidden" name="Title" value=@Model.Title />
+                <input type="hidden" name="Description" value=@Model.Description/>
+                <input type="hidden" name="Text" value=@Model.Text />
+                <input type="hidden" name="id" value=@Model.NoteId />
+
+                <p class="p_note_information">Создатель @ViewData["user"]</p>
+                <p class="p_note_information">Выполняет @ViewData["userExecutes"]</p>
+                <p class="p_note_information">Комменатрии к заметке</p>
+                <p class="p_note_information"><textarea class="txtarea_min" name="Comment">@Model.Comment</textarea></p>
+                <p class="p_note_information">Статус заметки</p>
+                <p class="p_note_information">@Model.State</p>
+                <p class="p_note_information">Приоритет заметки</p>
+                <p class="p_note_information"><textarea class="txtarea_min" name="Priority">@Model.Priority</textarea></p>
+                 <input class="p_note_information" formaction="../Edit" type="submit" value="Сохранить изменения" />
+             </form>
+        </div>
 
 	</div>
 
