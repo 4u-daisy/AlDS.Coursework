@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlDS.Coursework.WebApplicationTest.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221102090145___init")]
-    partial class __init
+    [Migration("20221220184500_changes_note")]
+    partial class changes_note
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,13 +36,16 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)");
 
                     b.Property<string>("Space")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -73,10 +76,12 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("CardId");
 
@@ -95,7 +100,8 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(257)
+                        .HasColumnType("nvarchar(257)");
 
                     b.Property<string>("CreatorId")
                         .IsRequired()
@@ -111,16 +117,32 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)");
 
                     b.Property<int?>("IdUserExecuted")
+                        .HasMaxLength(257)
                         .HasColumnType("int");
 
+                    b.Property<string>("IdUserExecutes")
+                        .HasMaxLength(257)
+                        .HasColumnType("nvarchar(257)");
+
+                    b.Property<string>("Priority")
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
+
+                    b.Property<string>("State")
+                        .HasMaxLength(257)
+                        .HasColumnType("nvarchar(257)");
+
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1023)
+                        .HasColumnType("nvarchar(1023)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("NoteId");
 
@@ -142,7 +164,8 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Key");
+                    b.HasKey("Key")
+                        .HasName("PRIMARY KEY");
 
                     b.HasIndex("BoardId");
 
@@ -160,7 +183,8 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -173,17 +197,20 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .IsRequired()
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Firstname")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("Information")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(253)
+                        .HasColumnType("nvarchar(253)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -192,10 +219,12 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Middlename")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -206,7 +235,9 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(127)
+                        .HasColumnType("nvarchar(127)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -221,8 +252,8 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasMaxLength(63)
+                        .HasColumnType("nvarchar(63)");
 
                     b.HasKey("Id");
 

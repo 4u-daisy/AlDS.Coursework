@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AlDS.Coursework.WebApplicationTest.Migrations
 {
-    public partial class __init : Migration
+    public partial class changes_note : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,19 +28,19 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Middlename = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Firstname = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Middlename = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Information = table.Column<string>(type: "nvarchar(253)", maxLength: 253, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     DateRegistration = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateBirthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: false),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: false),
                     SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -61,9 +61,9 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                 {
                     BoardId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Space = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Space = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -185,8 +185,8 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                     CardId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BoardId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -211,7 +211,7 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserBoard", x => x.Key);
+                    table.PrimaryKey("PRIMARY KEY", x => x.Key);
                     table.ForeignKey(
                         name: "FK_UserBoard_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -233,14 +233,17 @@ namespace AlDS.Coursework.WebApplicationTest.Migrations
                     NoteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatorId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CardId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(127)", maxLength: 127, nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(1023)", maxLength: 1023, nullable: true),
+                    Comment = table.Column<string>(type: "nvarchar(257)", maxLength: 257, nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IdUserExecuted = table.Column<int>(type: "int", nullable: true),
-                    DateExecuted = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    IdUserExecuted = table.Column<int>(type: "int", maxLength: 257, nullable: true),
+                    DateExecuted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Priority = table.Column<string>(type: "nvarchar(63)", maxLength: 63, nullable: true),
+                    IdUserExecutes = table.Column<string>(type: "nvarchar(257)", maxLength: 257, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(257)", maxLength: 257, nullable: true)
                 },
                 constraints: table =>
                 {

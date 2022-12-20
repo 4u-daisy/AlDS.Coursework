@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using AlDS.Coursework.WebApplicationTest.Data;
 using Microsoft.AspNetCore.Authorization;
+using AlDS.Coursework.Board.RelatedTablesModel;
 
 namespace AlDS.Coursework.WebApplicationTest.Controllers
 {
@@ -132,6 +133,47 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             return Redirect("../board/Index/" + updBoard.BoardId);
         }
+
+        public async Task<IActionResult> AddPerson(string id, string boardId)
+        {
+
+            var board = await _context.UserBoard
+                .FirstOrDefaultAsync(x => x.BoardId == boardId);
+
+            if(board == null)
+            {
+                return NotFound();
+            }
+
+            await _context.UserBoard.AddAsync(new UserBoard
+                {
+                    BoardId = boardId,
+                    UserId = id,
+                });
+            _context.SaveChanges();
+            return Redirect("../board/Index/" + boardId);
+        }
+
+        public async Task<IActionResult> DeletePerson(string id, string boardId)
+        {
+
+            var board = await _context.UserBoard
+                .FirstOrDefaultAsync(x => x.BoardId == boardId);
+
+            if (board == null)
+            {
+                return NotFound();
+            }
+
+            var elem = await _context.UserBoard
+                .FirstAsync(x=>x.BoardId == boardId && x.UserId == id);
+
+            _context.UserBoard.Remove(elem);
+            _context.SaveChanges();
+
+            return Redirect("../board/Index/" + boardId);
+        }
+
 
         // GET: Board/Delete/5
         public async Task<IActionResult> Delete(string id, string email)

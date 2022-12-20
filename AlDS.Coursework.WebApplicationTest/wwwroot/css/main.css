@@ -626,11 +626,13 @@ tbody.board_details {
 }
 
 .dropbtn {
-    background-color: none;
+    background-color: rgba(0,0,0,0);
     padding: 16px;
-    font-size: 16px;
     border: none;
     cursor: pointer;
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 32px;
 }
 
     .dropbtn:hover, .dropbtn:focus {
@@ -639,7 +641,12 @@ tbody.board_details {
 
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: block;
+    top: 15%;
+    background-color: none;
+    text-align: center;
+    width: 20%;
+    left: 40%;
 }
 
 .dropdown-content {
@@ -695,7 +702,7 @@ tbody.board_details {
     max-height: 70%;
     text-align: center;
     position: fixed;
-    top: 15%;
+    top: 25%;
     left: 15%;
     overflow-y: auto;
     -ms-overflow-style: none; /* IE и Edge */
@@ -745,3 +752,37 @@ tbody.board_details {
     width: 100%;
     font-size: 48px;
 }
+
+.txtarea {
+    background: none;
+    accent-color: aliceblue;
+    width: 100%;
+    position: relative;
+    top: 5%;
+    text-align: center;
+    border: none;
+    min-height: 50%;
+}
+
+.wrapper {
+    width: 96%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+
+.block {
+    cursor: grabbing;
+}
+
+.hide {
+    display: none;
+}
+
+.hover {
+    position: relative;
+}
+

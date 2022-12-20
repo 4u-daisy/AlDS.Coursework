@@ -20,6 +20,7 @@
 
     <header class="Title">
         <div class="headers_link">
+            <a class="identity" href="../../Person/Index/?email=@User.Identity.Name"> Вернуться на ту страницу</a>
             <a class="identity" href="https://localhost:7240/">На главную</a>
             <div class="identity">
                 <form class="button_identity" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
@@ -43,18 +44,26 @@
 
             <table class="board_details">
                 <tbody class ="board_details">
+
                 @foreach(var elem in @Model.Cards)
                 {
                     <tr class="table_details">
                         <td class="td_details">
-                            <p class="p_board">@elem.Title</p>
+                            <div class="box">
+                                <p class="p_board">@elem.Title</p>
+                            </div>
                         </td>
+
                         @foreach(var note in elem.Notes)
                         {
                             <td class="td_board_name">
-                                <a class="a_board" href="../../Note/Index/@note.NoteId">
-                                    <p class="p_board">@note.Title</p>
-                                </a>
+                               
+                                <div class="block">
+                                    <a class="a_board" href="../../Note/Index/@note.NoteId">
+                                        <p class="p_board">@note.Title</p>
+                                    </a>
+                                </div>
+
                             </td>
                         }
                         <td class="td_board_name">

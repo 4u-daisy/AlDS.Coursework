@@ -18,12 +18,17 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string id, string boardId="")
+        public async Task<IActionResult> Index(string id)
         {
-            ViewData["id"] = boardId;
             var elem = await _context.Note
                 .FirstOrDefaultAsync(x=>x.NoteId == id);
+            if (elem == null)
+            {
+                return NotFound();
+            }
 
+            var card = await _context.Card
+                .FirstAsync(x => x.CardId == elem.CardId);
             return View(elem);
         }
 
@@ -41,7 +46,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             {
                 return NotFound();
             }
-            var userId = _context.User.First(x => x.Email == note.CreatorId);
+            Thread.Sleep(10);
+            var userId = await _context.User.FirstAsync(x => x.Email == note.CreatorId);
             var newNote = new Note()
             {
                 CreatorId = userId.Id,
@@ -55,7 +61,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             };
 
             _context.Note.Add(newNote);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             if (BoardId == "")
                 return View(note);
@@ -79,17 +85,11 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             return View(note);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment")] Note note)
         {
-            //if (id != note.NoteId)
-            //{
-            //    return NotFound();
-            //}
-
-            var updNote = _context.Note
-                .FirstOrDefault(x => x.NoteId == id);
+            var updNote = await _context.Note
+                .FirstOrDefaultAsync(x => x.NoteId == id);
 
             if (updNote == null)
                 return NotFound();
@@ -102,11 +102,24 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.SaveChanges();
 
-            return Redirect("Index/"+id);
+            return Redirect("Index/" + id);
         }
 
+        public async Task<IActionResult> AddExecuted(string id, string personId)
+        {
+
+            var elem = await _context.Note
+                .FirstAsync(x => x.NoteId == id);
+
+            elem.IdUserExecutes = personId;
+            _context.SaveChanges();
+
+            return NotFound();
+        }
+
+
         // GET: Note/Delete/5
-        public async Task<IActionResult> Delete(string id, string BoardId)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null || _context.Note == null)
             {
@@ -114,7 +127,12 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             }
 
             var note = _context.Note
-                .FirstOrDefault(m => m.NoteId == id);
+                .First(m => m.NoteId == id);
+
+            var boardId = _context.Card
+                .First(x => x.CardId == note.CardId)
+                .BoardId;
+
             if (note == null)
             {
                 return NotFound();
@@ -123,7 +141,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             _context.Note.Remove(note);
             _context.SaveChanges();
 
-            return Redirect("../../Board/Info" + BoardId);
+            return Redirect("../../Board/Index/" + boardId);
         }
 
         // POST: Note/Delete/5

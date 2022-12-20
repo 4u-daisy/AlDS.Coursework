@@ -3,13 +3,17 @@ using AlDS.Coursework.WebApplicationTest.Data;
 using AlDS.Coursework.WebApplicationTest.Services;
 using Microsoft.EntityFrameworkCore;
 
+// TODO добавление пользователей / drag and drop / 
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.GetSection(Config.Project).Bind(new Config());
-var connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Database=TestProject_AlDStwo; Persist Security Info=false; User ID='sa'; Password='sa'; MultipleActiveResultSets=True; Trusted_Connection=False;";
+var connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Database=ADS; Persist Security Info=false; User ID='sa'; Password='sa'; MultipleActiveResultSets=True; Trusted_Connection=False;";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString),
+    ServiceLifetime.Transient);
+//builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<User>(
     options => options.SignIn.RequireConfirmedAccount = true)
