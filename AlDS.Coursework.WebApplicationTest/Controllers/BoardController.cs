@@ -22,6 +22,18 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             {
                 return NotFound();
             }
+            var peoplesId = _context.UserBoard
+                .Where(x => x.BoardId == id)
+                .Select(x=>x.UserId);
+
+            var emailPeoples = new List<string>();
+            foreach (var people in peoplesId)
+            {
+                emailPeoples.Add(_context.User.First(x => x.Id == people).Email);
+            }
+
+            ViewData["emailPeoples"] = emailPeoples;
+
 
             var board = await _context.Board
                 .FirstOrDefaultAsync(m => m.BoardId == id);
@@ -33,6 +45,9 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             var cards = await _context.Card
                 .Where(x => x.BoardId == board.BoardId)
                 .ToListAsync();
+
+            ViewData["Creator"] = _context.User.First(x => x.Id == board.UserId).Email;
+
             foreach (var elem in board.Cards)
             {
                 var notes = await _context.Note
@@ -116,16 +131,13 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("Space,Title,Description")] Board.BoardModel.Board board)
         {
-            if(id != board.BoardId)
-            {
-                return NotFound();
-            }
-
             var updBoard = await _context.Board.FirstAsync(x => x.BoardId == id);
             
             updBoard.Space = board.Space;
-            updBoard.Title = board.Title;
-            updBoard.Description = board.Description;
+            if (board.Title != null)
+                updBoard.Title = board.Title;
+            if (board.Description !=  null)
+                updBoard.Description = board.Description;
             updBoard.DateUpdated = DateTime.UtcNow;
 
             //_context.Update(updBoard);
@@ -134,8 +146,10 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             return Redirect("../board/Index/" + updBoard.BoardId);
         }
 
-        public async Task<IActionResult> AddPerson(string id, string boardId)
+        public async Task<IActionResult> AddPerson(string email, string boardId)
         {
+            var id = await _context.User
+                .FirstAsync(x=>x.Email == email);
 
             var board = await _context.UserBoard
                 .FirstOrDefaultAsync(x => x.BoardId == boardId);
@@ -148,15 +162,16 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             await _context.UserBoard.AddAsync(new UserBoard
                 {
                     BoardId = boardId,
-                    UserId = id,
+                    UserId = id.Id,
                 });
             _context.SaveChanges();
             return Redirect("../board/Index/" + boardId);
         }
 
-        public async Task<IActionResult> DeletePerson(string id, string boardId)
+        public async Task<IActionResult> DeletePerson(string email, string boardId)
         {
-
+            var id = await _context.User
+                .FirstAsync(x => x.Email == email);
             var board = await _context.UserBoard
                 .FirstOrDefaultAsync(x => x.BoardId == boardId);
 
@@ -166,7 +181,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             }
 
             var elem = await _context.UserBoard
-                .FirstAsync(x=>x.BoardId == boardId && x.UserId == id);
+                .FirstAsync(x=>x.BoardId == boardId && x.UserId == id.Id);
 
             _context.UserBoard.Remove(elem);
             _context.SaveChanges();
@@ -224,6 +239,26 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
           return _context.Board.Any(e => e.BoardId == id);
         }
 
+
+
+        public async Task<IActionResult> Test(string id)
+        {
+            var board = await _context.Board
+                .FirstOrDefaultAsync(m => m.BoardId == id);
+
+            var cards = await _context.Card
+                .Where(x => x.BoardId == board.BoardId)
+                .ToListAsync();
+
+            foreach (var elem in board.Cards)
+            {
+                var notes = await _context.Note
+                    .Where(x => x.CardId == elem.CardId)
+                    .ToListAsync();
+            }
+
+            return View(board);
+        }
 
     }
 }

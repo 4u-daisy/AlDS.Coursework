@@ -35,10 +35,11 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             var user = await _context.User
                 .FirstAsync(x => x.Id == elem.CreatorId);
-
+            
             ViewData["userExecutes"] = userExecutes;
             ViewData["user"] = user;
-
+            ViewData["Title"] = elem.Title;
+            ViewData["emailUserExecutes"] = userExecutes.Email;
 
             return View(elem);
         }
@@ -93,24 +94,37 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             {
                 return NotFound();
             }
+            
             ViewData["CardId"] = new SelectList(_context.Card, "CardId", "CardId", note.CardId);
             return View(note);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment, Priority")] Note note)
+        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment,State,Priority")] Note note)
         {
             var updNote = await _context.Note
                 .FirstOrDefaultAsync(x => x.NoteId == id);
 
             if (updNote == null)
                 return NotFound();
+            if (note.Title != null)
+                updNote.Text = note.Text;
+            if (note.Description != null)
+                updNote.Description = note.Description;
+            if (note.Comment != null)
+                updNote.Comment = note.Comment;
+            if (note.State != null)
+                updNote.State = note.State;
+            if (note.Priority != null)
+                updNote.Priority = note.Priority;
 
-            updNote.Text = note.Text;
-            updNote.Description = note.Description;
-            updNote.Comment = note.Comment;
-            updNote.Title = note.Title;
-            updNote.Priority = note.Priority;
+            if(note.IdUserExecutes != null)
+            {
+                var elem = _context.User
+                    .FirstOrDefault(x => x.Email == note.IdUserExecutes).Id;
+                note.IdUserExecutes = elem;
+            }
+
             updNote.DateUpdated = DateTime.UtcNow;
 
             _context.SaveChanges();
@@ -133,7 +147,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
         public async Task<IActionResult> UpdateCard(string id, string idNewCard)
         {
-
             var note = await _context.Note
                 .FirstAsync(x => x.NoteId == id);
             var boardId = await _context.Card

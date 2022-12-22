@@ -31,27 +31,24 @@
     </header>
 
 	<div class="note">
-        <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">@Model.Title</button>
-          <div id="myDropdown" class="dropdown-content">
-            <a href="../Delete/?id=@Model.NoteId">Удалить</a>
-            <a href="#">Изменить название</a>
-          </div>
+     
+        <div class="link">
+            <a href="#blackout">@Model.Title</a>
         </div>
-		<div class="note_title">
-			<p>@Model.Description</p>
-		</div>
+
 		<div class="note_text">
 			    <form asp-action="Edit" method="post">
-                        <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
-                        <input type="hidden" name="CreatorId" value = @Model.CreatorId>
-                        <input type="hidden" name ="CardId" value = @Model.CardId>
-
-                        <input type="hidden" name="Title" value=@Model.Title />
-                        <input type="hidden" name="Description" value=@Model.Description/>
-                        <p><textarea class="txtarea" name="Text">@Model.Text</textarea></p>
-
                         <input type="hidden" name="id" value=@Model.NoteId />
+                        <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
+                        <input type="hidden" name="CreatorId" value = @Model.CreatorId />
+                        <input type="hidden" name ="CardId" value = @Model.CardId />
+                        <input type="hidden" name="Title" value=@Model.Title />
+                        <input type="hidden" name="Description" value=@Model.Description />
+
+                        <input type="hidden" name ="Comment" value = @Model.Comment />
+                        <input type="hidden" name ="Priority" value = @Model.Priority />
+
+                        <p><textarea class="txtarea" name="Text">@Model.Text</textarea></p>
 
                         <input formaction="../Edit" type="submit" value="Сохранить изменения" />
                 </form>
@@ -59,22 +56,41 @@
 
         <div class="note_information">
             <form asp-action="Edit" method="post">
-                <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
-                <input type="hidden" name="CreatorId" value = @Model.CreatorId>
-                <input type="hidden" name ="CardId" value = @Model.CardId>
-                <input type="hidden" name="Title" value=@Model.Title />
-                <input type="hidden" name="Description" value=@Model.Description/>
-                <input type="hidden" name="Text" value=@Model.Text />
                 <input type="hidden" name="id" value=@Model.NoteId />
 
-                <p class="p_note_information">Создатель @ViewData["user"]</p>
-                <p class="p_note_information">Выполняет @ViewData["userExecutes"]</p>
+                <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
+                <input type="hidden" name="CreatorId" value = @Model.CreatorId />
+                <input type="hidden" name ="CardId" value = @Model.CardId />
+                <input type="hidden" name="Title" value=@Model.Title />
+                <input type="hidden" name="Description" value=@Model.Description />
+                <input type="hidden" name="Text" value=@Model.Text />
+
+                <p class="p_note_information">Создатель @ViewData["user"] </p>
+                <p class="p_note_information">Выполняет @ViewData["emailUserExecutes"]</p>
                 <p class="p_note_information">Комменатрии к заметке</p>
                 <p class="p_note_information"><textarea class="txtarea_min" name="Comment">@Model.Comment</textarea></p>
                 <p class="p_note_information">Статус заметки</p>
-                <p class="p_note_information">@Model.State</p>
+                <div>
+                    <select name="State">
+                        <option value="">@Model.State
+                        </option>
+	                    <option>Сложный уровень сложности</option>
+	                    <option>Средний уровень сложности</option>
+	                    <option>Легкий уровень сложности</option>
+	                    <option>Никакой</option>
+                    </select>
+                </div>
                 <p class="p_note_information">Приоритет заметки</p>
-                <p class="p_note_information"><textarea class="txtarea_min" name="Priority">@Model.Priority</textarea></p>
+                <div>
+                    <select name="Priority">
+                        <option value="">@Model.Priority
+                        </option>
+	                    <option>Высокий</option>
+	                    <option>Средний</option>
+	                    <option>Низкий</option>
+	                    <option>Никакой</option>
+                    </select>
+                </div>
                  <input class="p_note_information" formaction="../Edit" type="submit" value="Сохранить изменения" />
              </form>
         </div>
@@ -84,6 +100,57 @@
 </div>
 
 
+        <div id="blackout">
+          <div id="window_display">
+                <p>@Model.Description</p>
+                <p>@Html.RouteLink("Удалить", new { controller = "Note", action = "Delete", id = @Model.NoteId} )</p>
+                <p><a href="#changeTitle">Изменить название</a></p>
+                <p><a href="#changeDescription">Изменить описание</a></p>
+                <p>Задачу исполняет @ViewData["emailUserExecutes"]</p>
+                <p><a href="#assignTask">Назначить задачу человеку</a></p>
+
+            <a href="#" class="changeTitle_windowClose">Закрыть окно</a>
+          </div>
+        </div>
+        
+
+        <div id="changeTitle">
+            <div id="changeTitle_window">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value = @Model.NoteId>
+                    <input class="placeholderCard" type="text" name="Title" placeholder="Введите новое название"/>                               
+                    <input formaction="../../Note/Edit" type="submit" value="Изменить" />
+                </form> 
+                <div class="board_window_setting">
+                    <a href="#blackout" class="changeTitle_windowClose">Закрыть окно</a>
+                </div>  
+            </div>
+        </div>
+
+        <div id="changeDescription">
+            <div id="changeDescription_window">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value = @Model.NoteId>
+                    <input class="placeholderCard" type="text" name="Description" placeholder="Введите новое описание"/>
+                    <input formaction="../../Note/Edit" type="submit" value="Изменить" />
+                </form>  
+                <div class="board_window_setting">
+                    <a href="#blackout" class="changeDescription_windowClose">Закрыть окно</a>
+                </div>  
+            </div>
+         </div>
+        <div id="assignTask">
+            <div id="assignTask_window">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value = @Model.NoteId>
+                    <input class="placeholderCard" type="text" name="IdUserExecutes" placeholder="Введите email исполнителя"/>
+                    <input formaction="../../Note/Edit" type="submit" value="Изменить" />
+                </form>  
+                <div class="board_window_setting">
+                    <a href="#blackout" class="assignTask_windowClose">Закрыть окно</a>
+                </div>  
+            </div>
+         </div>
 
 <script>
 function myFunction() {

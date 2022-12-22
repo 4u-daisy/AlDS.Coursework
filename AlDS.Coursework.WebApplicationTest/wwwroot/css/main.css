@@ -574,7 +574,7 @@ tbody.board_details {
     text-decoration: none;
     font-size: 24px;
     text-align: center;
-    background-color: rgba(217, 217, 217, 0.5);
+    background-color: rgba(217, 217, 217, 0.0);
 }
 .td_board_name {
     display: block ruby;
@@ -583,7 +583,7 @@ tbody.board_details {
     text-decoration: none;
     font-size: 18px;
     text-align: center;
-    background-color: rgba(244, 244, 244, 0.95);
+    background-color: rgba(244, 244, 244, 0);
     border-radius: 10px;
     margin: 3px;
     padding: 5px;
@@ -645,8 +645,7 @@ tbody.board_details {
     top: 15%;
     background-color: none;
     text-align: center;
-    width: 20%;
-    left: 40%;
+    width: auto;
 }
 
 .dropdown-content {
@@ -656,6 +655,7 @@ tbody.board_details {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    position:relative;
 }
 
     .dropdown-content a {
@@ -811,4 +811,186 @@ tbody.board_details {
     font-style: normal;
     font-size: 14px;
     color: #000000;
+}
+
+
+
+#blackout {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#window_display {
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    width: 60%;
+    height: auto;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(242, 242, 242, 0.5);
+    background: #fff;
+    color: #0000cc;
+    margin: auto;
+}
+
+#blackout:target {
+    display: block;
+}
+
+.close_blackout {
+    display: inline-block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+    .close_blackout:hover {
+        background: #e6e6ff;
+    }
+
+.link {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.board_window_setting{
+
+}
+
+#changeTitle {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#changeTitle_window {
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    width: 60%;
+    height: auto;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(242, 242, 242, 0.5);
+    background: #fff;
+    color: #0000cc;
+    margin: auto;
+}
+
+#changeTitle:target {
+    display: block;
+}
+
+.changeTitle_windowClose {
+    display: inline-block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+.changeTitle_windowClose:hover {
+    background: #e6e6ff;
+}
+
+
+
+#changeDescription {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#changeDescription_window {
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    width: 60%;
+    height: auto;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(242, 242, 242, 0.5);
+    background: #fff;
+    color: #0000cc;
+    margin: auto;
+}
+
+#changeDescription:target {
+    display: block;
+}
+
+.changeDescription_windowClose {
+    display: inline-block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+    .changeDescription_windowClose:hover {
+        background: #e6e6ff;
+    }
+
+
+
+#assignTask {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#assignTask_window {
+    position: fixed;
+    top: 15%;
+    left: 20%;
+    width: 60%;
+    height: auto;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(242, 242, 242, 0.5);
+    background: #fff;
+    color: #0000cc;
+    margin: auto;
+}
+
+#assignTask:target {
+    display: block;
+}
+
+.assignTask_windowClose {
+    display: inline-block;
+    border: 1px solid #0000cc;
+    color: #0000cc;
+    padding: 0 12px;
+    margin: 10px;
+    text-decoration: none;
+    background: #f2f2f2;
+    font-size: 14pt;
+    cursor: pointer;
+}
+
+.assignTask_windowClose:hover {
+    background: #e6e6ff;
 }

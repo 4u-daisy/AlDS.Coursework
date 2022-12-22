@@ -1,0 +1,178 @@
+﻿@using AlDS.Coursework.Board.BoardModel;
+@using AlDS.Coursework.Board.UserModel
+@using Microsoft.AspNetCore.Identity
+@using AlDS.Coursework.Board.RelatedTablesModel
+@using AlDS.Coursework.WebApplicationTest.Data
+
+@{
+    Layout = "../../Pages/Shared/_Layout.cshtml";
+}
+
+
+<style>
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.task-container {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: #1565C0;
+    color: white;
+    border-style: none;
+    text-align: center;
+}
+
+.task-list button {
+    padding: 0px;
+    background-color: #1565C0;
+    color: white;
+}
+
+.task-list {
+    min-height: 100px;
+}
+
+.task-list button:hover {
+    background-color: #0D47A1;
+    color: white;
+    cursor: move;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 32px;
+    font-size: 30px;
+    color: white;
+}
+
+#user_pools div:nth-of-type(2) {
+    margin-top: 50px;
+}
+
+#user_pools div:nth-of-type(3) {
+    margin-top: 100px;
+}
+
+.status {
+    color: grey;
+}
+</style>
+
+<div class="row">    
+    <div class="col-md-4 col-md-offset-4">
+        <div class="task-container">
+            <h4>Tasks</h4>
+            <div id="unassigned" class="task-list">
+            </div>
+        </div>        
+    </div>
+</div>
+
+<div class="row" id="user_pools">
+    <div class="col-md-4 col-xs-12 col-md-push-4">
+        <div class="task-container">
+            <h4>User 1</h4>
+            <div id="user1" class="task-list">
+            </div>
+            <div class="bottom-right">1</div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xs-12 col-md-pull-4">
+        <div class="task-container">
+            <h4>User 2</h4>
+            <div id="user2" class="task-list">
+            </div>
+            <div class="bottom-right">2</div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-xs-12">
+        <div class="task-container">
+            <h4>User 3</h4>
+            <div id="user3" class="task-list">
+            </div>
+            <div class="bottom-right">3</div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        fetchTasks();
+    })
+    var fetchTasks = function () {
+        $.get("api/Tasks").done(function (result) {
+            sortTasks(result);
+            showContent();
+        });
+    }
+    var sortTasks = function (tasks) {
+        $.each(tasks, function (i, item) {
+            if (item.UserID === 1)
+                generateButton($('#user1'), item);
+            else if (item.UserID === 2)
+                generateButton($('#user2'), item);
+            else if (item.UserID === 3)
+                generateButton($('#user3'), item);
+            else
+                generateButton($('#unassigned'), item);
+        });
+        enableDragAndDrop();
+    }
+    var generateButton = function (list, item) {
+        list.append('<button class="btn btn-block" draggable="true" id="task' + item.ID + '">' + item.Name + '</button>');
+    }
+    var enableDragAndDrop = function () {
+        $('.task-list').on('dragover', function (e) {
+            e.preventDefault();
+        });
+        $('.task-list').on('drop', function (e) {
+            e.preventDefault();
+            var data = e.originalEvent.dataTransfer.getData('Text');
+            this.appendChild(document.getElementById(data));
+            saveChanges(data, this.id);
+        });
+        $('.task-list button').on('dragstart', function (e) {
+            e.originalEvent.dataTransfer.setData('Text', e.target.id);
+        });
+    }
+    var saveChanges = function (taskNo, userNo) {
+        var taskID = taskNo.substring(4);
+        var userID = (userNo === "unassigned") ? null : userNo.substring(4);
+        $('.status').text('Saving changes...');
+        $.post("api/Tasks", { TaskID: taskID, UserID: userID })
+            .done(function (data) { $('.status').text('Synchronized'); })
+            .fail(function (data) { $('.status').text('An error occurred'); });
+    }
+    var showContent = function () {
+        $('.status').text('Synchronized');
+        $('.body-content').show();
+    }
+    
+</script>

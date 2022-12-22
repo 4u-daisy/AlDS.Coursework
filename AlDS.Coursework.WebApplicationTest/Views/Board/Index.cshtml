@@ -14,7 +14,6 @@
 }
 
 
-
 <div class="person_main_page">
 
 
@@ -36,8 +35,7 @@
     <div class="board">
 
         <div class="board_information">
-            <p class="p_board">@Model.Title</p>     
-            
+            <a href="#blackout">@Model.Title</a>
         </div>
 
         <div class="board_setting"> 
@@ -93,7 +91,89 @@
         </div>
 
     </div>
+
+        <div id="blackout">
+            <div id="window_display">
+                <div class="board_window_setting">
+                    <p>Описание</p>
+                    <p>@Model.Description</p>
+                </div>
+                <div class="board_window_setting">
+                    <p>@Html.RouteLink("Удалить доску", new { controller = "Board", action = "Delete", id = @Model.BoardId, email=@User.Identity.Name} )</p>
+                </div>
+                <div class="board_window_setting">
+                    <a href="#changeTitle">Изменить название</a>
+                </div>
+                <div class="board_window_setting">
+                    <a href="#changeDescription">Изменить описание</a>
+                </div>
+ 
+                <div class="board_window_setting">
+                    <p>Создатель - @ViewData["Creator"]</p>
+                </div>
+                <div class="board_window_setting">
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn">Увидеть участников</button>
+                        <div id="myDropdown" class="dropdown-content">
+                            @foreach(var elem in @ViewData["emailPeoples"] as IList<string>)
+                            {
+                            <p>@elem</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="board_window_setting">
+                    <form asp-action="AddPerson">
+                        <input type="hidden" name="boardId" value = @Model.BoardId>
+                        <input type="text" name="id" placeholder="Введите email"/>
+                        <input formaction="../Board/AddPerson" type="submit" value="Добавить участника" />
+                    </form>
+                </div>
+                <div class="board_window_setting">
+                    <form asp-action="DeletePerson">
+                        <input type="hidden" name="boardId" value = @Model.BoardId>
+                        <input type="text" name="id" placeholder="Введите email"/>
+                        <input formaction="../Board/DeletePerson" type="submit" value="Удалить участника" />
+                    </form>
+                </div>
+
+                <div class="board_window_setting">
+                    <a href="#" class="close_blackout">Закрыть окно</a>
+                </div>  
+            </div>
+        </div>
+
 </div>
+
+ 
+        <div id="changeTitle">
+            <div id="changeTitle_window">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value = @Model.BoardId>
+                    <input type="hidden" name="Space" value = @Model.Space>
+                    <input class="placeholderCard" type="text" name="Title" placeholder="Введите новое название"/>                               
+                    <input formaction="../../Board/Edit" type="submit" value="Изменить" />
+                </form> 
+                <div class="board_window_setting">
+                    <a href="#blackout" class="changeTitle_windowClose">Закрыть окно</a>
+                </div>  
+            </div>
+        </div>
+
+        <div id="changeDescription">
+            <div id="changeDescription_window">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" name="id" value = @Model.BoardId>
+                    <input type="hidden" name="Space" value = @Model.Space>
+                    <input class="placeholderCard" type="text" name="Description" placeholder="Введите новое описание"/>
+                    <input formaction="../../Board/Edit" type="submit" value="Изменить" />
+                </form>  
+                <div class="board_window_setting">
+                    <a href="#blackout" class="changeDescription_windowClose">Закрыть окно</a>
+                </div>  
+            </div>
+         </div>
 
 
    @section Scripts {
@@ -118,7 +198,6 @@
     }
 
 
-
     const blockes = document.querySelectorAll('.block'),
         boxes = document.querySelectorAll('.box');
 
@@ -138,7 +217,7 @@
             this.classList.add('hide');
         }, 0);
     }
-    function endDragBlock() {
+    function endDragBlock(newId) {
         console.log('dragend');
         dragElem = null;
         this.classList.remove('hide');
