@@ -1,6 +1,7 @@
 using AlDS.Coursework.Board.UserModel;
 using AlDS.Coursework.WebApplicationTest.Data;
 using AlDS.Coursework.WebApplicationTest.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 // TODO добавление пользователей / drag and drop / 
@@ -13,6 +14,7 @@ var connectionString = "Data Source=(localdb)\\MSSQLLocalDB; Database=ADS; Persi
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString),
     ServiceLifetime.Transient);
+
 //builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<User>(
@@ -46,7 +48,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute("default", "{controller=Person}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("default", "{controller=Board}/{action=Index}/{id?}");
     endpoints.MapControllerRoute("default", "{controller=Note}/{action=Index}/{id?}");
-
 });
 app.MapRazorPages();
 app.Run();

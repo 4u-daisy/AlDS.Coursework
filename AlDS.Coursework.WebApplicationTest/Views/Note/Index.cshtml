@@ -17,7 +17,7 @@
     
     <header class="Title">
         <div class="headers_link">
-            <a class="identity" href="../../../Person/Index/?email=@User.Identity.Name">Вернуться на ту страницу</a>
+            <a class="identity" href="../../Board/Index/@ViewData["boardId"]">Вернуться на ту страницу</a>
             <a class="identity" href="https://localhost:7240/">На главную</a>
             <div class="identity">
                 <form class="button_identity" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" >
@@ -45,9 +45,6 @@
                         <input type="hidden" name="Title" value=@Model.Title />
                         <input type="hidden" name="Description" value=@Model.Description />
 
-                        <input type="hidden" name ="Comment" value = @Model.Comment />
-                        <input type="hidden" name ="Priority" value = @Model.Priority />
-
                         <p><textarea class="txtarea" name="Text">@Model.Text</textarea></p>
 
                         <input formaction="../Edit" type="submit" value="Сохранить изменения" />
@@ -61,9 +58,6 @@
                 <input type="hidden" asp-for="NoteId" value = @Model.NoteId/>
                 <input type="hidden" name="CreatorId" value = @Model.CreatorId />
                 <input type="hidden" name ="CardId" value = @Model.CardId />
-                <input type="hidden" name="Title" value=@Model.Title />
-                <input type="hidden" name="Description" value=@Model.Description />
-                <input type="hidden" name="Text" value=@Model.Text />
 
                 <p class="p_note_information">Создатель @ViewData["user"] </p>
                 <p class="p_note_information">Выполняет @ViewData["emailUserExecutes"]</p>
@@ -71,24 +65,22 @@
                 <p class="p_note_information"><textarea class="txtarea_min" name="Comment">@Model.Comment</textarea></p>
                 <p class="p_note_information">Статус заметки</p>
                 <div>
-                    <select name="State">
-                        <option value="">@Model.State
-                        </option>
-	                    <option>Сложный уровень сложности</option>
-	                    <option>Средний уровень сложности</option>
-	                    <option>Легкий уровень сложности</option>
-	                    <option>Никакой</option>
+                    <select class="select_note" name="State">
+                        <option class="option_note" value="">@Model.State</option>
+	                    <option class="option_note">Сложный уровень сложности</option>
+	                    <option class="option_note">Средний уровень сложности</option>
+	                    <option class="option_note">Легкий уровень сложности</option>
+	                    <option class="option_note">Никакой</option>
                     </select>
                 </div>
                 <p class="p_note_information">Приоритет заметки</p>
                 <div>
-                    <select name="Priority">
-                        <option value="">@Model.Priority
-                        </option>
-	                    <option>Высокий</option>
-	                    <option>Средний</option>
-	                    <option>Низкий</option>
-	                    <option>Никакой</option>
+                    <select class="select_note" name="Priority">
+                        <option class="option_note" value="">@Model.Priority </option>
+	                    <option class="option_note">Высокий</option>
+	                    <option class="option_note">Средний</option>
+	                    <option class="option_note">Низкий</option>
+	                    <option class="option_note">Никакой</option>
                     </select>
                 </div>
                  <input class="p_note_information" formaction="../Edit" type="submit" value="Сохранить изменения" />
@@ -106,7 +98,6 @@
                 <p>@Html.RouteLink("Удалить", new { controller = "Note", action = "Delete", id = @Model.NoteId} )</p>
                 <p><a href="#changeTitle">Изменить название</a></p>
                 <p><a href="#changeDescription">Изменить описание</a></p>
-                <p>Задачу исполняет @ViewData["emailUserExecutes"]</p>
                 <p><a href="#assignTask">Назначить задачу человеку</a></p>
 
             <a href="#" class="changeTitle_windowClose">Закрыть окно</a>

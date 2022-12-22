@@ -126,15 +126,16 @@
                 <div class="board_window_setting">
                     <form asp-action="AddPerson">
                         <input type="hidden" name="boardId" value = @Model.BoardId>
-                        <input type="text" name="id" placeholder="Введите email"/>
-                        <input formaction="../Board/AddPerson" type="submit" value="Добавить участника" />
+                        <input type="text" name="email" placeholder="Введите email"/>
+
+                        <input formaction="../../Board/AddPerson" type="submit" value="Добавить участника" />
                     </form>
                 </div>
                 <div class="board_window_setting">
                     <form asp-action="DeletePerson">
                         <input type="hidden" name="boardId" value = @Model.BoardId>
-                        <input type="text" name="id" placeholder="Введите email"/>
-                        <input formaction="../Board/DeletePerson" type="submit" value="Удалить участника" />
+                        <input type="text" name="email" placeholder="Введите email"/>
+                        <input formaction="../../Board/DeletePerson" type="submit" value="Удалить участника" />
                     </form>
                 </div>
 

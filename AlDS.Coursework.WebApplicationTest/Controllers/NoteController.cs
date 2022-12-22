@@ -40,6 +40,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             ViewData["user"] = user;
             ViewData["Title"] = elem.Title;
             ViewData["emailUserExecutes"] = userExecutes.Email;
+            ViewData["boardId"] = card.BoardId;
 
             return View(elem);
         }
@@ -100,7 +101,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment,State,Priority")] Note note)
+        public async Task<IActionResult> Edit(string id, [Bind("NoteId,CreatorId,CardId,Title,Description,Text,Comment,State,Priority, IdUserExecutes")] Note note)
         {
             var updNote = await _context.Note
                 .FirstOrDefaultAsync(x => x.NoteId == id);
@@ -108,6 +109,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             if (updNote == null)
                 return NotFound();
             if (note.Title != null)
+                updNote.Title = note.Title;
+            if (note.Text != null)
                 updNote.Text = note.Text;
             if (note.Description != null)
                 updNote.Description = note.Description;
@@ -122,7 +125,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             {
                 var elem = _context.User
                     .FirstOrDefault(x => x.Email == note.IdUserExecutes).Id;
-                note.IdUserExecutes = elem;
+                updNote.IdUserExecutes = elem;
             }
 
             updNote.DateUpdated = DateTime.UtcNow;

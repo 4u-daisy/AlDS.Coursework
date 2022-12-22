@@ -10,6 +10,10 @@ a{
     color: #000000;
 }
 
+p{
+    color:#000000;
+}
+
 input {
     border: none;
     background-color: rgba(0,0,0,0);
@@ -46,6 +50,9 @@ header.main_header {
     background-position: center;
     color: #4b5e76;
 }
+
+
+
 
 div.logo {
     position: relative;
@@ -993,4 +1000,16 @@ tbody.board_details {
 
 .assignTask_windowClose:hover {
     background: #e6e6ff;
+}
+
+.option_note {
+    font-size: 14px;
+    font-family: 'Inter';
+    font-style: normal;
+}
+.select_note {
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Inter';
+    font-style: normal;
 }

@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+<body class="main_page">
+
+<header class="main_header">
+<h1>Войти в аккаунт</h1>
+
+<div class="aut">
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <div class="form-floating">
+                    <input class="form-control" autocomplete="username" aria-required="true" type="email" data-val="true" data-val-email="The Email field is not a valid e-mail address." data-val-required="The Email field is required." id="Input_Email" name="Input.Email" value="" />
+                    <label class="form-label" for="Input_Email">Email</label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.Email" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" autocomplete="current-password" aria-required="true" type="password" data-val="true" data-val-required="The Password field is required." id="Input_Password" name="Input.Password" />
+                    <label class="form-label" for="Input_Password">Password</label>
+                    <span class="text-danger field-validation-valid" data-valmsg-for="Input.Password" data-valmsg-replace="true"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label class="form-label" for="Input_RememberMe">
+                            <input class="form-check-input" type="checkbox" data-val="true" data-val-required="The Remember me? field is required." id="Input_RememberMe" name="Input.RememberMe" value="true" />
+                            Запомнить аккаунт?
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Войти</button>
+                </div>
+                <div>
+                    <p>
+                        <a id="forgot-password" href="/Identity/Account/ForgotPassword">Забыли пароль?</a>
+                    </p>
+                </div>
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JGA12c81NJCjaW9qgtg__DXjz23IwFJY_E3BxVFPyGdzLp4PNJvf_8KwwrFwNVtk-gH5_A7Jaf9xi5YwLjdI1IGc9O9tU_F5AsyhTYpE02KN3GcezrbOOFdMlaEiz06l5MK1NrhgbsGoVDeR2pFoB0" /><input name="Input.RememberMe" type="hidden" value="false" /></form>
+        </section>
+    </div>
+   
+</div>
+</div>
+
+
+</header>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
+
+    
+    
+    <script src="/Identity/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/Identity/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+<script type="text/javascript" src="https://localhost:44399/0ed77b958ea346a3a356a2d9b06083aa/browserLink" async="async" id="__browserLink_initializationData" data-requestId="a9a80f3ae8da45d6be1662fa15d8bc46" data-requestMappingFromServer="False"></script>
+
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+
+</body>
