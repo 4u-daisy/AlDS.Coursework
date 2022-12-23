@@ -71,6 +71,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 Description = note.Description,
                 Text = note.Text,
                 Comment = note.Comment,
+                State = "Никакой",
+                Priority = "Никакой",
                 DateCreated = DateTime.UtcNow,
             };
 
@@ -125,7 +127,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
             {
                 var elem = _context.User
                     .FirstOrDefault(x => x.Email == note.IdUserExecutes).Id;
-                updNote.IdUserExecutes = elem;
+                if (elem != null)
+                    updNote.IdUserExecutes = elem;
             }
 
             updNote.DateUpdated = DateTime.UtcNow;
@@ -139,7 +142,7 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         {
 
             var elem = await _context.Note
-                .FirstAsync(x => x.NoteId == id);
+                .FirstOrDefaultAsync(x => x.NoteId == id);
 
             elem.IdUserExecutes = personId;
             _context.SaveChanges();

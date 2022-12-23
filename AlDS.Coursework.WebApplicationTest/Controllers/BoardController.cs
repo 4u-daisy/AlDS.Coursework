@@ -32,8 +32,8 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
                 emailPeoples.Add(_context.User.First(x => x.Id == people).Email);
             }
 
-            ViewData["emailPeoples"] = emailPeoples;
 
+            ViewData["emailPeoples"] = emailPeoples;
 
             var board = await _context.Board
                 .FirstOrDefaultAsync(m => m.BoardId == id);
@@ -149,7 +149,12 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         public async Task<IActionResult> AddPerson(string email, string boardId)
         {
             var id = await _context.User
-                .FirstAsync(x=>x.Email == email);
+                .FirstOrDefaultAsync(x=>x.Email == email);
+
+            if(id == null)
+            {
+                return Redirect("../board/Index/" + boardId);
+            }
 
             var board = await _context.UserBoard
                 .FirstOrDefaultAsync(x => x.BoardId == boardId);
@@ -172,6 +177,12 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
         {
             var id = await _context.User
                 .FirstAsync(x => x.Email == email);
+
+            if(id == null)
+            {
+                return Redirect("../board/Index/" + boardId);
+            }
+
             var board = await _context.UserBoard
                 .FirstOrDefaultAsync(x => x.BoardId == boardId);
 
@@ -211,6 +222,12 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
 
             _context.Board.Remove(board);
 
+            var userBoards = _context.UserBoard.Where(x => x.BoardId == id);
+            foreach (var userBoard in userBoards)
+            {
+                _context.UserBoard.Remove(userBoard);
+            }
+
             await _context.SaveChangesAsync();
 
             return Redirect("../../Person/Index/?email=" + email);
@@ -239,26 +256,6 @@ namespace AlDS.Coursework.WebApplicationTest.Controllers
           return _context.Board.Any(e => e.BoardId == id);
         }
 
-
-
-        public async Task<IActionResult> Test(string id)
-        {
-            var board = await _context.Board
-                .FirstOrDefaultAsync(m => m.BoardId == id);
-
-            var cards = await _context.Card
-                .Where(x => x.BoardId == board.BoardId)
-                .ToListAsync();
-
-            foreach (var elem in board.Cards)
-            {
-                var notes = await _context.Note
-                    .Where(x => x.CardId == elem.CardId)
-                    .ToListAsync();
-            }
-
-            return View(board);
-        }
 
     }
 }

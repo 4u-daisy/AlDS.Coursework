@@ -13,7 +13,8 @@
     Layout = "../../Pages/Shared/_Layout.cshtml";
 }
 
-
+@if((ViewData["emailPeoples"] as List<string>).Contains(@User.Identity.Name))
+{
 <div class="person_main_page">
 
 
@@ -55,13 +56,12 @@
                         @foreach(var note in elem.Notes)
                         {
                             <td class="td_board_name">
-                               
                                 <div class="block">
                                     <a class="a_board" href="../../Note/Index/@note.NoteId">
                                         <p class="p_board">@note.Title</p>
                                     </a>
-                                </div>
-
+                                </div>                                    
+                            
                             </td>
                         }
                         <td class="td_board_name">
@@ -175,13 +175,14 @@
                 </div>  
             </div>
          </div>
-
+}
 
    @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }
 
 <script>
+
     function myFunction() {
       document.getElementById("myDropdown").classList.toggle("show");
     }
